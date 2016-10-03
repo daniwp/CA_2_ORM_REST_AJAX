@@ -1,1 +1,9 @@
+entities\InfoEntity.class
+schemagenerator\SchemaGenerator.class
+entities\Address.class
+entities\Hobby.class
+entities\Company.class
+entities\Phone.class
 entities\test.class
+entities\Person.class
+entities\CityInfo.class
