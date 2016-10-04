@@ -3,13 +3,14 @@ package jsonconverter;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import entities.CityInfo;
 import entities.Company;
+import entities.Hobby;
 import entities.Person;
-import facade.PersonFacade;
+import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Persistence;
 
 /**
  *
@@ -51,9 +52,27 @@ public class JSONConverter implements IJSONConverter {
     public String getJsonFromPerson(Person person) {
 
         JsonObject json = new JsonObject();
+        JsonArray hobbies = new JsonArray();
+
+        json.addProperty("id", person.getId());
         json.addProperty("firstname", person.getFirstName());
         json.addProperty("lastname", person.getLastName());
         json.addProperty("email", person.getEmail());
+        if (!person.getHobbies().isEmpty()) {
+
+            for (Hobby hobby : person.getHobbies()) {
+
+                JsonObject jsonHobby = new JsonObject();
+                jsonHobby.addProperty("id", hobby.getId());
+                jsonHobby.addProperty("name", hobby.getName());
+                jsonHobby.addProperty("description", hobby.getDescription());
+                
+                hobbies.add(jsonHobby);
+            }
+            
+            
+            json.add("hobbies", hobbies);
+        }
 
         return getGsonInstance().toJson(json);
 
