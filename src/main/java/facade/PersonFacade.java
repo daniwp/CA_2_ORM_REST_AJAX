@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import entities.Person;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,19 +20,32 @@ import entities.Person;
  */
 public class PersonFacade implements IPersonFacade {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA2REST_PU");
-    EntityManager em = emf.createEntityManager();
+    EntityManagerFactory emf;
+    
+    private static PersonFacade instance = null;
+    public static PersonFacade getInstance() {
+        if (instance == null) {
+            instance = new PersonFacade(Persistence.createEntityManagerFactory("CA2REST_PU"));
+        }
+        return instance;
+    }
 
-    Person p = new Person();
-    Company c = new Company();
-    CityInfo ci = new CityInfo();
+    public PersonFacade(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
+
+    public EntityManager getEntityManager() {
+        return emf.createEntityManager();
+    }
+
     @Override
-    public Person getPerson(int id) {
-        Person p = new Person();
+    public Person getPerson(long id) {
+        Person p = null;
+        EntityManager em = getEntityManager();
 
         try {
             em.getTransaction().begin();
-            p = (Person) em.createNativeQuery("SELECT P.ID FROM Person p", Person.class).getSingleResult();
+            p =  em.find(Person.class, id);
 
         } catch (Exception e) {
         } finally {
@@ -42,42 +56,68 @@ public class PersonFacade implements IPersonFacade {
 
     @Override
     public List<Person> getPersons() {
+        List<Person> persons = new ArrayList();
+        EntityManager em = getEntityManager();
+
         try {
             em.getTransaction().begin();
-            Person p = (Person) em.createQuery("SELECT p FROM Person p", Person.class).getResultList();
+            persons = em.createQuery("SELECT p FROM Person p", Person.class).getResultList();
 
         } catch (Exception e) {
-
         } finally {
             em.close();
 
         }
-        return (List<Person>) p;
+        return persons;
     }
 
     @Override
     public Company getCompany(String cvr) {
+        Company c = null;
+        EntityManager em = getEntityManager();
+
         try {
             em.getTransaction().begin();
-            Company c = em.createQuery("SELECT c.cvr FROM Company c", Company.class).getSingleResult();
+            c = em.createQuery("SELECT c FROM Company c WHERE c.cvr = :cvr", Company.class).setParameter("cvr", cvr).getSingleResult();
+
         } catch (Exception e) {
         } finally {
             em.close();
 
         }
+
         return c;
     }
 
     @Override
-    public List<Person> getPersonZip(int zipCode) {
+    public List<Person> getPersonsFromZipcode(int zipCode) {
+        List<Person> persons = new ArrayList();
+        EntityManager em = getEntityManager();
+
         try {
-            em.getTransaction().begin();
-            p = (Person) em.createNativeQuery("SELECT CityInfo.ZipCode, Person.ID, Person.firstName FROM ZipCode INNER JOIN Person ON CityInfo.ID=Person.ID").getResultList();
+            CityInfo city = getCityInfo(zipCode);
+
+            persons = em.createQuery("SELECT p FROM Person p WHERE p.address.city = :city", Person.class).setParameter("city", city).getResultList();
+
         } catch (Exception e) {
-        }   finally {
+        } finally {
             em.close();
         }
-        return (List<Person>) p;
+
+        return persons;
+    }
+
+    public CityInfo getCityInfo(int zipCode) {
+        CityInfo cityInfo = null;
+        EntityManager em = getEntityManager();
+
+        try {
+            cityInfo = em.createQuery("SELECT c FROM CityInfo c WHERE c.zipCode = :zip", CityInfo.class).setParameter("zip", zipCode).getSingleResult();
+
+        } catch (Exception e) {
+        }
+
+        return cityInfo;
     }
 
 }

@@ -1,9 +1,14 @@
 entities\InfoEntity.class
+facade\PersonFacade.class
 schemagenerator\SchemaGenerator.class
-entities\Address.class
 entities\Hobby.class
 entities\Company.class
 entities\Phone.class
-entities\test.class
-entities\Person.class
+jsonconverter\IJSONConverter.class
 entities\CityInfo.class
+api\ApplicationConfig.class
+api\PersonResource.class
+jsonconverter\JSONConverter.class
+entities\Address.class
+facade\IPersonFacade.class
+entities\Person.class

@@ -20,17 +20,17 @@ import javax.persistence.ManyToMany;
  * @author danie
  */
 @Entity
-public class Person extends InfoEntity implements Serializable{
+public class Person extends InfoEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
-    @Id
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
     private String firstName;
     private String lastName;
-    
-    @ManyToMany(cascade=(CascadeType.ALL))
+
+    @ManyToMany(cascade = (CascadeType.ALL))
     private List<Hobby> hobbies = new ArrayList();
 
     public Person() {
@@ -45,7 +45,7 @@ public class Person extends InfoEntity implements Serializable{
     public void addHobby(Hobby hobby) {
         hobbies.add(hobby);
     }
-    
+
     public List<Hobby> getHobbies() {
         return hobbies;
     }
@@ -102,5 +102,5 @@ public class Person extends InfoEntity implements Serializable{
     public String toString() {
         return "entities.Person[ id=" + id + " ]";
     }
-    
+
 }

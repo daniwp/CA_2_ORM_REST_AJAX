@@ -14,8 +14,8 @@ import java.util.List;
  * @author HazemSaeid
  */
 public interface IPersonFacade {
-    Person getPerson(int id);
+    Person getPerson(long id);
     List<Person> getPersons();
-    List<Person> getPersonZip(int zipCode);
+    List<Person> getPersonsFromZipcode(int zipCode);
     Company getCompany(String cvr);
 }

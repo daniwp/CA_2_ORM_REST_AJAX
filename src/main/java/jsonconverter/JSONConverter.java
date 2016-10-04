@@ -3,10 +3,13 @@ package jsonconverter;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import entities.CityInfo;
 import entities.Company;
 import entities.Person;
+import facade.PersonFacade;
 import java.util.List;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -14,7 +17,22 @@ import java.util.List;
  */
 public class JSONConverter implements IJSONConverter {
 
-    private Gson gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).create();
+    private static JSONConverter instance = null;
+    private static Gson gson = null;
+
+    public static JSONConverter getClassInstance() {
+        if (instance == null) {
+            instance = new JSONConverter();
+        }
+        return instance;
+    }
+
+    public static Gson getGsonInstance() {
+        if (gson == null) {
+            gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).create();
+        }
+        return gson;
+    }
 
     @Override
     public String getJsonFromInteger(int number) {
@@ -31,7 +49,14 @@ public class JSONConverter implements IJSONConverter {
      */
     @Override
     public String getJsonFromPerson(Person person) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        JsonObject json = new JsonObject();
+        json.addProperty("firstname", person.getFirstName());
+        json.addProperty("lastname", person.getLastName());
+        json.addProperty("email", person.getEmail());
+
+        return getGsonInstance().toJson(json);
+
     }
 
     @Override

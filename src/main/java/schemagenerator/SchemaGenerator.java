@@ -5,6 +5,7 @@ import entities.CityInfo;
 import entities.Hobby;
 import entities.Person;
 import entities.Phone;
+import facade.PersonFacade;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -37,21 +38,20 @@ public class SchemaGenerator {
         em.persist(p2);
         em.getTransaction().commit();
 
-        List<Person> ps = new ArrayList();
-        ps.add(em.find(Person.class, p.getId()));
-        ps.add(em.find(Person.class, p1.getId()));
-        ps.add(em.find(Person.class, p2.getId()));
-
-        for (Person pp : ps) {
-            if (!pp.getHobbies().isEmpty()) {
-                System.out.println(pp.getHobbies().get(0).getName());
-            }
-            System.out.println(pp.getFirstName());
-            if (pp.getAddress() != null) {
-                System.out.println(pp.getAddress().getStreet());
-            }
-        }
-
+//        List<Person> ps = new ArrayList();
+//        ps.add(em.find(Person.class, p.getId()));
+//        ps.add(em.find(Person.class, p1.getId()));
+//        ps.add(em.find(Person.class, p2.getId()));
+//
+//        for (Person pp : ps) {
+//            if (!pp.getHobbies().isEmpty()) {
+//                System.out.println(pp.getHobbies().get(0).getName());
+//            }
+//            System.out.println(pp.getFirstName());
+//            if (pp.getAddress() != null) {
+//                System.out.println(pp.getAddress().getStreet());
+//            }
+//        }
         em.close();
 
     }
