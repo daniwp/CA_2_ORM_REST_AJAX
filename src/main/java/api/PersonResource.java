@@ -29,7 +29,7 @@ public class PersonResource {
     }
 
     @GET
-    @Path("/{id}")
+    @Path("/complete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPersonById(@PathParam("id") long id) {
         return Response.ok().entity(JSONConverter.getClassInstance().getJsonFromPerson(PersonFacade.getInstance().getPerson(id))).build();

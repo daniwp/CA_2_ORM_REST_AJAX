@@ -53,26 +53,11 @@ public class JSONConverter implements IJSONConverter {
     public String getJsonFromPerson(Person person) {
 
         JsonObject json = new JsonObject();
-        JsonArray hobbies = new JsonArray();
         JsonArray phones = new JsonArray();
 
-        json.addProperty("id", person.getId());
         json.addProperty("firstname", person.getFirstName());
         json.addProperty("lastname", person.getLastName());
         json.addProperty("email", person.getEmail());
-
-        if (person.getAddress() != null) {
-            JsonObject jsonAddress = new JsonObject();
-            jsonAddress.addProperty("street", person.getAddress().getStreet());
-
-            if (person.getAddress().getCity() != null) {
-                jsonAddress.addProperty("zipcode", person.getAddress().getCity().getZipCode());
-                jsonAddress.addProperty("city", person.getAddress().getCity().getCity());
-
-            }
-
-            json.add("address", jsonAddress);
-        }
 
         if (!person.getPhones().isEmpty()) {
 
@@ -88,19 +73,14 @@ public class JSONConverter implements IJSONConverter {
             json.add("phones", phones);
         }
 
-        if (!person.getHobbies().isEmpty()) {
+        if (person.getAddress() != null) {
+            json.addProperty("street", person.getAddress().getStreet());
 
-            for (Hobby hobby : person.getHobbies()) {
+            if (person.getAddress().getCity() != null) {
+                json.addProperty("zipcode", person.getAddress().getCity().getZipCode());
+                json.addProperty("city", person.getAddress().getCity().getCity());
 
-                JsonObject jsonHobby = new JsonObject();
-                jsonHobby.addProperty("id", hobby.getId());
-                jsonHobby.addProperty("name", hobby.getName());
-                jsonHobby.addProperty("description", hobby.getDescription());
-
-                hobbies.add(jsonHobby);
             }
-
-            json.add("hobbies", hobbies);
         }
 
         return getGsonInstance().toJson(json);
@@ -115,26 +95,11 @@ public class JSONConverter implements IJSONConverter {
         for (Person p : persons) {
 
             JsonObject json = new JsonObject();
-            JsonArray hobbies = new JsonArray();
             JsonArray phones = new JsonArray();
 
-            json.addProperty("id", p.getId());
             json.addProperty("firstname", p.getFirstName());
             json.addProperty("lastname", p.getLastName());
             json.addProperty("email", p.getEmail());
-
-            if (p.getAddress() != null) {
-                JsonObject jsonAddress = new JsonObject();
-                jsonAddress.addProperty("street", p.getAddress().getStreet());
-
-                if (p.getAddress().getCity() != null) {
-                    jsonAddress.addProperty("zipcode", p.getAddress().getCity().getZipCode());
-                    jsonAddress.addProperty("city", p.getAddress().getCity().getCity());
-
-                }
-
-                json.add("address", jsonAddress);
-            }
 
             if (!p.getPhones().isEmpty()) {
 
@@ -150,19 +115,14 @@ public class JSONConverter implements IJSONConverter {
                 json.add("phones", phones);
             }
 
-            if (!p.getHobbies().isEmpty()) {
+            if (p.getAddress() != null) {
+                json.addProperty("street", p.getAddress().getStreet());
 
-                for (Hobby hobby : p.getHobbies()) {
+                if (p.getAddress().getCity() != null) {
+                    json.addProperty("zipcode", p.getAddress().getCity().getZipCode());
+                    json.addProperty("city", p.getAddress().getCity().getCity());
 
-                    JsonObject jsonHobby = new JsonObject();
-                    jsonHobby.addProperty("id", hobby.getId());
-                    jsonHobby.addProperty("name", hobby.getName());
-                    jsonHobby.addProperty("description", hobby.getDescription());
-
-                    hobbies.add(jsonHobby);
                 }
-
-                json.add("hobbies", hobbies);
             }
 
             jsonPersons.add(json);
