@@ -3,8 +3,55 @@
     <head>
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div class="section">
+            <div class="container">
+                <div class="col-md-8">
+                    <div class="page-header"><h2>Personregister</h2></div>
+                    <p style="color: black; font-family: times new roman; font-size: 18px;">Infomation om personer i PET's kriminalregister</p>
+
+                    <table id="data" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Firstname</th>
+                                <th>Lastname</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Street</th>
+                                <th>Zipcode</th>
+                                <th>City</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody id="person">
+
+                        </tbody>
+                    </table>
+                    <div class="col-md-3">
+                        <div class="page-header"><h2>Kontakt informationer</h2>
+                            <table id="contact" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="contact">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="javascript/PersonScript.js" type="text/javascript"></script>
     </body>
 </html>
