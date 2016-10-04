@@ -86,7 +86,6 @@ public class JSONConverter implements IJSONConverter {
         }
 
         return getGsonInstance().toJson(json);
-
     }
 
     @Override
@@ -198,33 +197,42 @@ public class JSONConverter implements IJSONConverter {
 
     @Override
     public Person getPersonFromJson(String content) {
-        JsonObject json = new JsonParser().parse(content).getAsJsonObject();
 
-        String fname = json.get("firstname").getAsString();
-        String lname = json.get("lastname").getAsString();
-        String email = json.get("email").getAsString();
+        Person p = null;
 
-        Person p = new Person(fname, lname, email);
+        try {
 
-        if (json.get("street") != null) {
+            JsonObject json = new JsonParser().parse(content).getAsJsonObject();
 
-            String street = json.get("street").getAsString();
-            int zipcode = json.get("zipcode").getAsInt();
-            String city = json.get("city").getAsString();
+            String fname = json.get("firstname").getAsString();
+            String lname = json.get("lastname").getAsString();
+            String email = json.get("email").getAsString();
 
-            p.setAddress(new Address(street, new CityInfo(zipcode, city)));
-        }
+            p = new Person(fname, lname, email);
 
-        if (json.get("phones") != null) {
+            if (json.get("street") != null) {
 
-            for (JsonElement e : json.getAsJsonArray("phones")) {
+                String street = json.get("street").getAsString();
+                int zipcode = json.get("zipcode").getAsInt();
+                String city = json.get("city").getAsString();
 
-                String number = e.getAsJsonObject().get("number").getAsString();
-                String description = e.getAsJsonObject().get("description").getAsString();
-                
-                p.addPhone(new Phone(number, description));
+                p.setAddress(new Address(street, new CityInfo(zipcode, city)));
             }
 
+            if (json.get("phones") != null) {
+
+                for (JsonElement e : json.getAsJsonArray("phones")) {
+
+                    String number = e.getAsJsonObject().get("number").getAsString();
+                    String description = e.getAsJsonObject().get("description").getAsString();
+
+                    p.addPhone(new Phone(number, description));
+                }
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return p;

@@ -40,8 +40,15 @@ public class PersonResource {
     @GET
     @Path("/complete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getComplete(@PathParam("id") long id) {
-        return Response.ok().entity(jCon.getJsonFromPersonAllDetails(pFacade.getPerson(id))).build();
+    public Response getComplete(@PathParam("id") long id) throws PeopleException {
+
+        Person p = pFacade.getPerson(id);
+
+        if (p == null) {
+            throw new PeopleException(404, "No person with that id was found");
+        }
+
+        return Response.ok().entity(jCon.getJsonFromPersonAllDetails(p)).build();
     }
 
     @GET
@@ -55,13 +62,13 @@ public class PersonResource {
     @Path("/contactinfo/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getContact(@PathParam("id") long id) throws PeopleException {
-        
+
         Person p = pFacade.getPerson(id);
-        
+
         if (p == null) {
             throw new PeopleException(404, "No person with that id was found");
         }
-        
+
         return Response.ok().entity(jCon.getJsonFromPersonContactInfo(p)).build();
     }
 
@@ -75,22 +82,47 @@ public class PersonResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response add(String content) {
+    public Response add(String content) throws PeopleException {
+
+        Person p = jCon.getPersonFromJson(content);
+
+        if (p == null || p.getFirstName() == null || p.getLastName() == null || p.getEmail() == null) {
+            throw new PeopleException(400, "Bad request - Must at least contain a firstname, lastname and an email in JSON format");
+        }
+
         return Response.ok().entity(jCon.getJsonFromPersonAllDetails(pFacade.addPerson(jCon.getPersonFromJson(content)))).build();
     }
 
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("id") long id) {
-        return Response.ok().entity(jCon.getJsonFromPersonAllDetails(pFacade.deletePerson(id))).build();
+    public Response delete(@PathParam("id") long id) throws PeopleException {
+
+        Person p = pFacade.deletePerson(id);
+
+        if (p == null) {
+            throw new PeopleException(404, "No person with that id was found");
+        }
+
+        return Response.ok().entity(jCon.getJsonFromPersonAllDetails(p)).build();
     }
 
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response edit(@PathParam("id") long id, String content) {
-        return Response.ok().entity(jCon.getJsonFromPersonAllDetails(pFacade.editPerson(jCon.getPersonFromJson(content), id))).build();
+    public Response edit(@PathParam("id") long id, String content) throws PeopleException {
+
+        Person p = jCon.getPersonFromJson(content);
+
+        if (p == null || p.getFirstName() == null || p.getLastName() == null || p.getEmail() == null) {
+            throw new PeopleException(400, "Bad request - Must at least contain a firstname, lastname and an email in JSON format");
+        }
+
+        if (pFacade.getPerson(id) == null) {
+            throw new PeopleException(404, "No person with that id was found");
+        }
+
+        return Response.ok().entity(jCon.getJsonFromPersonAllDetails(pFacade.editPerson(p, id))).build();
     }
 }
