@@ -9,6 +9,7 @@ import entities.CityInfo;
 import entities.Company;
 import entities.Hobby;
 import entities.Person;
+import entities.Phone;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class JSONConverter implements IJSONConverter {
 
         JsonObject json = new JsonObject();
         JsonArray hobbies = new JsonArray();
+        JsonArray phones = new JsonArray();
 
         json.addProperty("id", person.getId());
         json.addProperty("firstname", person.getFirstName());
@@ -70,6 +72,20 @@ public class JSONConverter implements IJSONConverter {
             }
 
             json.add("address", jsonAddress);
+        }
+
+        if (!person.getPhones().isEmpty()) {
+
+            for (Phone phone : person.getPhones()) {
+
+                JsonObject jsonPhone = new JsonObject();
+                jsonPhone.addProperty("number", phone.getNumber());
+                jsonPhone.addProperty("description", phone.getDescription());
+
+                phones.add(jsonPhone);
+            }
+
+            json.add("phones", phones);
         }
 
         if (!person.getHobbies().isEmpty()) {
@@ -100,6 +116,7 @@ public class JSONConverter implements IJSONConverter {
 
             JsonObject json = new JsonObject();
             JsonArray hobbies = new JsonArray();
+            JsonArray phones = new JsonArray();
 
             json.addProperty("id", p.getId());
             json.addProperty("firstname", p.getFirstName());
@@ -117,6 +134,20 @@ public class JSONConverter implements IJSONConverter {
                 }
 
                 json.add("address", jsonAddress);
+            }
+
+            if (!p.getPhones().isEmpty()) {
+
+                for (Phone phone : p.getPhones()) {
+
+                    JsonObject jsonPhone = new JsonObject();
+                    jsonPhone.addProperty("number", phone.getNumber());
+                    jsonPhone.addProperty("description", phone.getDescription());
+
+                    phones.add(jsonPhone);
+                }
+
+                json.add("phones", phones);
             }
 
             if (!p.getHobbies().isEmpty()) {
@@ -137,7 +168,7 @@ public class JSONConverter implements IJSONConverter {
             jsonPersons.add(json);
 
         }
-        
+
         return getGsonInstance().toJson(jsonPersons);
 
     }
