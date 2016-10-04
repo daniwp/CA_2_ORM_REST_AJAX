@@ -58,6 +58,20 @@ public class JSONConverter implements IJSONConverter {
         json.addProperty("firstname", person.getFirstName());
         json.addProperty("lastname", person.getLastName());
         json.addProperty("email", person.getEmail());
+
+        if (person.getAddress() != null) {
+            JsonObject jsonAddress = new JsonObject();
+            jsonAddress.addProperty("street", person.getAddress().getStreet());
+
+            if (person.getAddress().getCity() != null) {
+                jsonAddress.addProperty("zipcode", person.getAddress().getCity().getZipCode());
+                jsonAddress.addProperty("city", person.getAddress().getCity().getCity());
+
+            }
+
+            json.add("address", jsonAddress);
+        }
+
         if (!person.getHobbies().isEmpty()) {
 
             for (Hobby hobby : person.getHobbies()) {
@@ -66,11 +80,10 @@ public class JSONConverter implements IJSONConverter {
                 jsonHobby.addProperty("id", hobby.getId());
                 jsonHobby.addProperty("name", hobby.getName());
                 jsonHobby.addProperty("description", hobby.getDescription());
-                
+
                 hobbies.add(jsonHobby);
             }
-            
-            
+
             json.add("hobbies", hobbies);
         }
 
@@ -80,7 +93,53 @@ public class JSONConverter implements IJSONConverter {
 
     @Override
     public String getJsonFromPersons(List<Person> persons) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        List<JsonObject> jsonPersons = new ArrayList();
+
+        for (Person p : persons) {
+
+            JsonObject json = new JsonObject();
+            JsonArray hobbies = new JsonArray();
+
+            json.addProperty("id", p.getId());
+            json.addProperty("firstname", p.getFirstName());
+            json.addProperty("lastname", p.getLastName());
+            json.addProperty("email", p.getEmail());
+
+            if (p.getAddress() != null) {
+                JsonObject jsonAddress = new JsonObject();
+                jsonAddress.addProperty("street", p.getAddress().getStreet());
+
+                if (p.getAddress().getCity() != null) {
+                    jsonAddress.addProperty("zipcode", p.getAddress().getCity().getZipCode());
+                    jsonAddress.addProperty("city", p.getAddress().getCity().getCity());
+
+                }
+
+                json.add("address", jsonAddress);
+            }
+
+            if (!p.getHobbies().isEmpty()) {
+
+                for (Hobby hobby : p.getHobbies()) {
+
+                    JsonObject jsonHobby = new JsonObject();
+                    jsonHobby.addProperty("id", hobby.getId());
+                    jsonHobby.addProperty("name", hobby.getName());
+                    jsonHobby.addProperty("description", hobby.getDescription());
+
+                    hobbies.add(jsonHobby);
+                }
+
+                json.add("hobbies", hobbies);
+            }
+
+            jsonPersons.add(json);
+
+        }
+        
+        return getGsonInstance().toJson(jsonPersons);
+
     }
 
     @Override
