@@ -5,13 +5,16 @@
  */
 package facade;
 
+import entities.Address;
 import entities.CityInfo;
 import entities.Company;
+import entities.Hobby;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import entities.Person;
+import entities.Phone;
 import java.util.ArrayList;
 
 /**
@@ -21,8 +24,9 @@ import java.util.ArrayList;
 public class PersonFacade implements IPersonFacade {
 
     EntityManagerFactory emf;
-    
+
     private static PersonFacade instance = null;
+
     public static PersonFacade getInstance() {
         if (instance == null) {
             instance = new PersonFacade(Persistence.createEntityManagerFactory("CA2REST_PU"));
@@ -45,9 +49,10 @@ public class PersonFacade implements IPersonFacade {
 
         try {
             em.getTransaction().begin();
-            p =  em.find(Person.class, id);
+            p = em.find(Person.class, id);
 
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             em.close();
         }
@@ -64,29 +69,12 @@ public class PersonFacade implements IPersonFacade {
             persons = em.createQuery("SELECT p FROM Person p", Person.class).getResultList();
 
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             em.close();
 
         }
         return persons;
-    }
-
-    @Override
-    public Company getCompany(String cvr) {
-        Company c = null;
-        EntityManager em = getEntityManager();
-
-        try {
-            em.getTransaction().begin();
-            c = em.createQuery("SELECT c FROM Company c WHERE c.cvr = :cvr", Company.class).setParameter("cvr", cvr).getSingleResult();
-
-        } catch (Exception e) {
-        } finally {
-            em.close();
-
-        }
-
-        return c;
     }
 
     @Override
@@ -100,6 +88,7 @@ public class PersonFacade implements IPersonFacade {
             persons = em.createQuery("SELECT p FROM Person p WHERE p.address.city = :city", Person.class).setParameter("city", city).getResultList();
 
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             em.close();
         }
@@ -107,17 +96,113 @@ public class PersonFacade implements IPersonFacade {
         return persons;
     }
 
-    public CityInfo getCityInfo(int zipCode) {
+    private CityInfo getCityInfo(int zipCode) {
         CityInfo cityInfo = null;
         EntityManager em = getEntityManager();
 
         try {
-            cityInfo = em.createQuery("SELECT c FROM CityInfo c WHERE c.zipCode = :zip", CityInfo.class).setParameter("zip", zipCode).getSingleResult();
+            cityInfo = em.createQuery("SELECT c FROM CityInfo c WHERE c.zip = :zip", CityInfo.class).setParameter("zip", zipCode).getResultList().get(0);
 
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return cityInfo;
     }
 
+    @Override
+    public Person addPerson(Person person) {
+        EntityManager em = getEntityManager();
+
+        try {
+            em.getTransaction().begin();
+
+            if (person.getAddress() != null) {
+
+                CityInfo city = getCityInfo(person.getAddress().getCity().getZipCode());
+
+                if (city != null) {
+                    person.getAddress().setCity(city);
+                    em.merge(person);
+                    em.getTransaction().commit();
+                    return person;
+                }
+            }
+            
+            em.persist(person);
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+
+        return person;
+    }
+
+    @Override
+    public Person addHobbyToPerson(Hobby hobby, long id) {
+        EntityManager em = getEntityManager();
+        Person p = null;
+
+        try {
+            em.getTransaction().begin();
+
+            p = em.find(Person.class, id);
+
+            hobby = addHobby(hobby);
+            p.addHobby(hobby);
+
+            em.merge(p);
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+
+        return p;
+    }
+
+    @Override
+    public Person addPhoneToPerson(Phone phone, long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Person addAddressToPerson(Address address, long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Person deletePerson(long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Hobby addHobby(Hobby hobby) {
+        EntityManager em = getEntityManager();
+
+        try {
+            em.getTransaction().begin();
+
+            Hobby h = em.find(Hobby.class, hobby);
+
+            if (h != null) {
+                return h;
+            }
+
+            em.persist(hobby);
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+
+        return hobby;
+    }
 }

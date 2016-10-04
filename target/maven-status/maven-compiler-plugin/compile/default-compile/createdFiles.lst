@@ -12,3 +12,5 @@ jsonconverter\JSONConverter.class
 entities\Address.class
 facade\IPersonFacade.class
 entities\Person.class
+facade\CompanyFacade.class
+facade\ICompanyFacade.class

@@ -5,8 +5,10 @@ C:\wamp64\www\CA_2_ORM_REST_AJAX\src\main\java\entities\Person.java
 C:\wamp64\www\CA_2_ORM_REST_AJAX\src\main\java\entities\Company.java
 C:\wamp64\www\CA_2_ORM_REST_AJAX\src\main\java\schemagenerator\SchemaGenerator.java
 C:\wamp64\www\CA_2_ORM_REST_AJAX\src\main\java\entities\Address.java
+C:\wamp64\www\CA_2_ORM_REST_AJAX\src\main\java\facade\CompanyFacade.java
 C:\wamp64\www\CA_2_ORM_REST_AJAX\src\main\java\api\ApplicationConfig.java
 C:\wamp64\www\CA_2_ORM_REST_AJAX\src\main\java\jsonconverter\IJSONConverter.java
+C:\wamp64\www\CA_2_ORM_REST_AJAX\src\main\java\facade\ICompanyFacade.java
 C:\wamp64\www\CA_2_ORM_REST_AJAX\src\main\java\entities\Hobby.java
 C:\wamp64\www\CA_2_ORM_REST_AJAX\src\main\java\entities\InfoEntity.java
 C:\wamp64\www\CA_2_ORM_REST_AJAX\src\main\java\facade\IPersonFacade.java

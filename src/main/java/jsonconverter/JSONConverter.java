@@ -4,7 +4,10 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import entities.Address;
 import entities.CityInfo;
 import entities.Company;
 import entities.Person;
@@ -195,7 +198,36 @@ public class JSONConverter implements IJSONConverter {
 
     @Override
     public Person getPersonFromJson(String content) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JsonObject json = new JsonParser().parse(content).getAsJsonObject();
+
+        String fname = json.get("firstname").getAsString();
+        String lname = json.get("lastname").getAsString();
+        String email = json.get("email").getAsString();
+
+        Person p = new Person(fname, lname, email);
+
+        if (json.get("street") != null) {
+
+            String street = json.get("street").getAsString();
+            int zipcode = json.get("zipcode").getAsInt();
+            String city = json.get("city").getAsString();
+
+            p.setAddress(new Address(street, new CityInfo(zipcode, city)));
+        }
+
+        if (json.get("phones") != null) {
+
+            for (JsonElement e : json.getAsJsonArray("phones")) {
+
+                String number = e.getAsJsonObject().get("number").getAsString();
+                String description = e.getAsJsonObject().get("description").getAsString();
+                
+                p.addPhone(new Phone(number, description));
+            }
+
+        }
+
+        return p;
     }
 
     @Override

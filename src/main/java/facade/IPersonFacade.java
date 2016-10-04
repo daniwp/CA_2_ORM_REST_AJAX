@@ -5,8 +5,11 @@
  */
 package facade;
 
+import entities.Address;
 import entities.Company;
+import entities.Hobby;
 import entities.Person;
+import entities.Phone;
 import java.util.List;
 
 /**
@@ -14,8 +17,24 @@ import java.util.List;
  * @author HazemSaeid
  */
 public interface IPersonFacade {
+
     Person getPerson(long id);
+
     List<Person> getPersons();
+
     List<Person> getPersonsFromZipcode(int zipCode);
-    Company getCompany(String cvr);
+
+    Person addPerson(Person person);
+
+    Person addHobbyToPerson(Hobby hobby, long id);
+
+    Hobby addHobby(Hobby hobby);
+
+    Person addPhoneToPerson(Phone phone, long id);
+
+    Person addAddressToPerson(Address address, long id);
+
+    Person deletePerson(long id);
+
+
 }
