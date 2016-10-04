@@ -7,7 +7,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import entities.CityInfo;
 import entities.Company;
-import entities.Hobby;
 import entities.Person;
 import entities.Phone;
 import java.util.ArrayList;
@@ -50,7 +49,7 @@ public class JSONConverter implements IJSONConverter {
      * Person Converter Methods
      */
     @Override
-    public String getJsonFromPerson(Person person) {
+    public String getJsonFromPersonAllDetails(Person person) {
 
         JsonObject json = new JsonObject();
         JsonArray phones = new JsonArray();
@@ -88,7 +87,7 @@ public class JSONConverter implements IJSONConverter {
     }
 
     @Override
-    public String getJsonFromPersons(List<Person> persons) {
+    public String getJsonFromPersonsAllDetails(List<Person> persons) {
 
         List<JsonObject> jsonPersons = new ArrayList();
 
@@ -131,6 +130,67 @@ public class JSONConverter implements IJSONConverter {
 
         return getGsonInstance().toJson(jsonPersons);
 
+    }
+
+    @Override
+    public String getJsonFromPersonContactInfo(Person person) {
+
+        JsonObject json = new JsonObject();
+        JsonArray phones = new JsonArray();
+
+        json.addProperty("id", person.getId());
+        json.addProperty("name", person.getFirstName() + " " + person.getLastName());
+        json.addProperty("email", person.getEmail());
+
+        if (!person.getPhones().isEmpty()) {
+
+            for (Phone phone : person.getPhones()) {
+
+                JsonObject jsonPhone = new JsonObject();
+                jsonPhone.addProperty("number", phone.getNumber());
+                jsonPhone.addProperty("description", phone.getDescription());
+
+                phones.add(jsonPhone);
+            }
+
+            json.add("phones", phones);
+        }
+
+        return getGsonInstance().toJson(json);
+    }
+
+    @Override
+    public String getJsonFromPersonsContactInfo(List<Person> persons) {
+
+        List<JsonObject> jsonPersons = new ArrayList();
+
+        for (Person p : persons) {
+
+            JsonObject json = new JsonObject();
+            JsonArray phones = new JsonArray();
+
+            json.addProperty("id", p.getId());
+            json.addProperty("name", p.getFirstName() + " " + p.getLastName());
+            json.addProperty("email", p.getEmail());
+
+            if (!p.getPhones().isEmpty()) {
+
+                for (Phone phone : p.getPhones()) {
+
+                    JsonObject jsonPhone = new JsonObject();
+                    jsonPhone.addProperty("number", phone.getNumber());
+                    jsonPhone.addProperty("description", phone.getDescription());
+
+                    phones.add(jsonPhone);
+                }
+
+                json.add("phones", phones);
+            }
+
+            jsonPersons.add(json);
+        }
+
+        return getGsonInstance().toJson(jsonPersons);
     }
 
     @Override

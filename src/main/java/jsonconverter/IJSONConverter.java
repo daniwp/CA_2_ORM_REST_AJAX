@@ -18,8 +18,10 @@ public interface IJSONConverter {
     public String getJsonFromInteger(int number);
     public String getZipsToJson(List<CityInfo> cities);
     
-    public String getJsonFromPerson(Person person);
-    public String getJsonFromPersons(List<Person> persons);
+    public String getJsonFromPersonAllDetails(Person person);
+    public String getJsonFromPersonsAllDetails(List<Person> persons);
+    public String getJsonFromPersonContactInfo(Person person);
+    public String getJsonFromPersonsContactInfo(List<Person> persons);
     public Person getPersonFromJson(String content);
     
     public String getJsonFromCompany(Company company);

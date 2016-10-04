@@ -31,14 +31,28 @@ public class PersonResource {
     @GET
     @Path("/complete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPersonById(@PathParam("id") long id) {
-        return Response.ok().entity(JSONConverter.getClassInstance().getJsonFromPerson(PersonFacade.getInstance().getPerson(id))).build();
+    public Response getComplete(@PathParam("id") long id) {
+        return Response.ok().entity(JSONConverter.getClassInstance().getJsonFromPersonAllDetails(PersonFacade.getInstance().getPerson(id))).build();
     }
     
     @GET
     @Path("/complete")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAll() {
-        return Response.ok().entity(JSONConverter.getClassInstance().getJsonFromPersons(PersonFacade.getInstance().getPersons())).build();
+    public Response getAllComplete() {
+        return Response.ok().entity(JSONConverter.getClassInstance().getJsonFromPersonsAllDetails(PersonFacade.getInstance().getPersons())).build();
+    }
+    
+    @GET
+    @Path("/contactinfo/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getContact(@PathParam("id") long id) {
+        return Response.ok().entity(JSONConverter.getClassInstance().getJsonFromPersonContactInfo(PersonFacade.getInstance().getPerson(id))).build();
+    }
+    
+    @GET
+    @Path("/contactinfo")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllContact() {
+        return Response.ok().entity(JSONConverter.getClassInstance().getJsonFromPersonsContactInfo(PersonFacade.getInstance().getPersons())).build();
     }
 }
