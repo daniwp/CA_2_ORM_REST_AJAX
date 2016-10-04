@@ -7,7 +7,6 @@ package facade;
 
 import entities.Address;
 import entities.CityInfo;
-import entities.Company;
 import entities.Hobby;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -128,7 +127,7 @@ public class PersonFacade implements IPersonFacade {
                     return person;
                 }
             }
-            
+
             em.persist(person);
 
             em.getTransaction().commit();
@@ -178,7 +177,25 @@ public class PersonFacade implements IPersonFacade {
 
     @Override
     public Person deletePerson(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = getEntityManager();
+        Person p = null;
+
+        try {
+            em.getTransaction().begin();
+
+            p = em.find(Person.class, id);
+
+            em.remove(p);
+
+            em.getTransaction().commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+
+        return p;
     }
 
     @Override
@@ -204,5 +221,28 @@ public class PersonFacade implements IPersonFacade {
         }
 
         return hobby;
+    }
+
+    @Override
+    public Person editPerson(Person person, long id) {
+        EntityManager em = getEntityManager();
+
+        try {
+            em.getTransaction().begin();
+
+            person.setId(id);
+            em.merge(person);
+
+            em.getTransaction().commit();
+
+            return em.find(Person.class, id);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+
+        return person;
     }
 }

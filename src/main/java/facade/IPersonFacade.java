@@ -6,7 +6,6 @@
 package facade;
 
 import entities.Address;
-import entities.Company;
 import entities.Hobby;
 import entities.Person;
 import entities.Phone;
@@ -35,6 +34,6 @@ public interface IPersonFacade {
     Person addAddressToPerson(Address address, long id);
 
     Person deletePerson(long id);
-
-
+    
+    Person editPerson(Person person, long id);
 }
