@@ -244,9 +244,9 @@ public class JSONConverter implements IJSONConverter {
     }
 
     /**
-     * 
+     *
      * Company Converter Methods
-     * 
+     *
      */
     @Override
     public Company getCompanyFromJson(String content) {
@@ -260,7 +260,41 @@ public class JSONConverter implements IJSONConverter {
 
     @Override
     public String getJsonFromCompanyAllDetails(Company company) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        JsonObject json = new JsonObject();
+        JsonArray phones = new JsonArray();
+
+        json.addProperty("name", company.getName());
+        json.addProperty("description", company.getDescription());
+        json.addProperty("cvr", company.getCvr());
+        json.addProperty("numEmployees", company.getNumEmployees());
+        json.addProperty("marketValue", company.getMarketValue());
+
+        if (!company.getPhones().isEmpty()) {
+
+            for (Phone phone : company.getPhones()) {
+
+                JsonObject jsonPhone = new JsonObject();
+                jsonPhone.addProperty("number", phone.getNumber());
+                jsonPhone.addProperty("description", phone.getDescription());
+
+                phones.add(jsonPhone);
+            }
+
+            json.add("phones", phones);
+        }
+
+        if (company.getAddress() != null) {
+            json.addProperty("street", company.getAddress().getStreet());
+
+            if (company.getAddress().getCity() != null) {
+                json.addProperty("zipcode", company.getAddress().getCity().getZipCode());
+                json.addProperty("city", company.getAddress().getCity().getCity());
+
+            }
+        }
+
+        return getGsonInstance().toJson(json);
     }
 
     @Override
