@@ -244,7 +244,9 @@ public class JSONConverter implements IJSONConverter {
     }
 
     /**
+     * 
      * Company Converter Methods
+     * 
      */
     @Override
     public Company getCompanyFromJson(String content) {
@@ -290,7 +292,49 @@ public class JSONConverter implements IJSONConverter {
 
     @Override
     public String getJsonFromCompaniesAllInfo(List<Company> companies) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        List<JsonObject> jsonPersons = new ArrayList();
+
+        for (Company c : companies) {
+
+            JsonObject json = new JsonObject();
+            JsonArray phones = new JsonArray();
+
+            json.addProperty("name", c.getName());
+            json.addProperty("description", c.getDescription());
+            json.addProperty("cvr", c.getCvr());
+            json.addProperty("numEmployees", c.getNumEmployees());
+            json.addProperty("marketValue", c.getMarketValue());
+
+            if (!c.getPhones().isEmpty()) {
+
+                for (Phone phone : c.getPhones()) {
+
+                    JsonObject jsonPhone = new JsonObject();
+                    jsonPhone.addProperty("number", phone.getNumber());
+                    jsonPhone.addProperty("description", phone.getDescription());
+
+                    phones.add(jsonPhone);
+                }
+
+                json.add("phones", phones);
+            }
+
+            if (c.getAddress() != null) {
+                json.addProperty("street", c.getAddress().getStreet());
+
+                if (c.getAddress().getCity() != null) {
+                    json.addProperty("zipcode", c.getAddress().getCity().getZipCode());
+                    json.addProperty("city", c.getAddress().getCity().getCity());
+
+                }
+            }
+
+            jsonPersons.add(json);
+
+        }
+
+        return getGsonInstance().toJson(jsonPersons);
     }
 
     @Override
