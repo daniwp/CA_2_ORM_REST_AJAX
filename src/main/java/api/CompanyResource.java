@@ -72,7 +72,7 @@ public class CompanyResource {
             throw new CustomException(404, "No company with that cvr was found");
         }
 
-        return Response.ok().entity(jCon.getJsonFromCompanyAllDetails(c)).build();
+        return Response.ok().entity(jCon.getJsonFromCompanyContactInfo(c)).build();
     }
 
 }
