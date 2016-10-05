@@ -26,7 +26,7 @@ public interface IJSONConverter {
     
     public String getJsonFromCompanyAllDetails(Company company);
     public String getJsonFromCompanyContactInfo(Company company);
-    public String getJsonFromCompaniesAllInfo(List<Company> companies);
+    public String getJsonFromCompaniesAllDetails(List<Company> companies);
     public String getJsonFromCompaniesContactInfo(List<Company> companies);
     public Company getCompanyFromJson(String content);
     

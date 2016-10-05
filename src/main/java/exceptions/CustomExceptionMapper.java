@@ -11,10 +11,10 @@ import jsonconverter.JSONConverter;
  * @author Daniel
  */
 @Provider
-public class PeopleExceptionMapper implements ExceptionMapper<PeopleException> {
+public class CustomExceptionMapper implements ExceptionMapper<CustomException> {
 
     @Override
-    public Response toResponse(PeopleException e) {
+    public Response toResponse(CustomException e) {
         return Response.status(e.getCode()).entity(JSONConverter.getGsonInstance().toJson(new PrettyException(e.getCode(), e.getMessage()))).type("application/json").build();
     }
 }

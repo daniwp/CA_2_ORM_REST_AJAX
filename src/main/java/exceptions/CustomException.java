@@ -4,11 +4,11 @@ package exceptions;
  *
  * @author Daniel
  */
-public class PeopleException extends Exception {
+public class CustomException extends Exception {
 
     private int code;
 
-    public PeopleException(int code, String message) {
+    public CustomException(int code, String message) {
         super(message);
         this.code = code;
     }

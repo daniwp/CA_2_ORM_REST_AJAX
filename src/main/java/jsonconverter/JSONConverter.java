@@ -325,7 +325,7 @@ public class JSONConverter implements IJSONConverter {
     }
 
     @Override
-    public String getJsonFromCompaniesAllInfo(List<Company> companies) {
+    public String getJsonFromCompaniesAllDetails(List<Company> companies) {
 
         List<JsonObject> jsonPersons = new ArrayList();
 
