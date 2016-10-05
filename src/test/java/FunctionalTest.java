@@ -1,4 +1,6 @@
+import com.jayway.restassured.RestAssured;
 import junit.framework.*;
+import org.junit.BeforeClass;
 /**
  *
  * @author Shmilo
