@@ -263,7 +263,29 @@ public class JSONConverter implements IJSONConverter {
 
     @Override
     public String getJsonFromCompanyContactInfo(Company company) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        JsonObject json = new JsonObject();
+        JsonArray phones = new JsonArray();
+
+        json.addProperty("id", company.getId());
+        json.addProperty("name", company.getName());
+        json.addProperty("email", company.getEmail());
+
+        if (!company.getPhones().isEmpty()) {
+
+            for (Phone phone : company.getPhones()) {
+
+                JsonObject jsonPhone = new JsonObject();
+                jsonPhone.addProperty("number", phone.getNumber());
+                jsonPhone.addProperty("description", phone.getDescription());
+
+                phones.add(jsonPhone);
+            }
+
+            json.add("phones", phones);
+        }
+
+        return getGsonInstance().toJson(json);
     }
 
     @Override
@@ -303,6 +325,5 @@ public class JSONConverter implements IJSONConverter {
         }
 
         return getGsonInstance().toJson(jsonCompanies);
-
     }
 }
