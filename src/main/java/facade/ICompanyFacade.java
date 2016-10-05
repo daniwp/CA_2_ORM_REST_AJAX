@@ -21,6 +21,8 @@ public interface ICompanyFacade {
 
     Company addAddressToCompany(Address address, long id);
 
+    Company editCompany(Company company, long id);
+
     Company deleteCompany(String cvr);
 
 }

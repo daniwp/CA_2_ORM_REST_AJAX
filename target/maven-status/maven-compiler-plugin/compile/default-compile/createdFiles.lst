@@ -23,5 +23,4 @@ exceptions\PeopleExceptionMapper.class
 entities\Address.class
 facade\IPersonFacade.class
 exceptions\ResourceNotFoundExceptionMapper.class
-facade\CompanyFacade.class
 facade\ICompanyFacade.class

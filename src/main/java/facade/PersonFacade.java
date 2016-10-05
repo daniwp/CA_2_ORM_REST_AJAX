@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package facade;
 
 import entities.Address;
 import entities.CityInfo;
+import entities.Company;
 import entities.Hobby;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -167,12 +163,70 @@ public class PersonFacade implements IPersonFacade {
 
     @Override
     public Person addPhoneToPerson(Phone phone, long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = getEntityManager();
+        Phone p = null;
+        Person person = null;
+
+        try {
+            em.getTransaction().begin();
+
+            person = em.find(Person.class, id);
+            p = em.find(Phone.class, phone.getId());
+
+            if (p == null) {
+                p = phone;
+
+            }
+
+            if (person != null) {
+                person.addPhone(p);
+                em.merge(person);
+
+                em.getTransaction().commit();
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+
+        return person;
+
     }
 
     @Override
     public Person addAddressToPerson(Address address, long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = getEntityManager();
+        Address a = null;
+        Person p = null;
+
+        try {
+            em.getTransaction().begin();
+
+            p = em.find(Person.class, id);
+            a = em.find(Address.class, address.getId());
+
+            if (a == null) {
+                a = address;
+
+            }
+
+            if (p != null) {
+                p.setAddress(a);
+                em.merge(p);
+                em.getTransaction().commit();
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+
+        return p;
     }
 
     @Override
@@ -226,6 +280,7 @@ public class PersonFacade implements IPersonFacade {
     @Override
     public Person editPerson(Person person, long id) {
         EntityManager em = getEntityManager();
+        Person p = null;
 
         try {
             em.getTransaction().begin();
@@ -235,7 +290,7 @@ public class PersonFacade implements IPersonFacade {
 
             em.getTransaction().commit();
 
-            return em.find(Person.class, id);
+            p = em.find(Person.class, id);
 
         } catch (Exception e) {
             e.printStackTrace();

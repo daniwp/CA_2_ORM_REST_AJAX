@@ -1,7 +1,9 @@
 package facade;
 
 import entities.Address;
+import entities.CityInfo;
 import entities.Company;
+import entities.Person;
 import entities.Phone;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +15,8 @@ import javax.persistence.Persistence;
  *
  * @author Daniel
  */
-public class CompanyFacade implements ICompanyFacade{
-    
+public class CompanyFacade implements ICompanyFacade {
+
     EntityManagerFactory emf;
 
     private static CompanyFacade instance = null;
@@ -40,10 +42,23 @@ public class CompanyFacade implements ICompanyFacade{
 
         try {
             em.getTransaction().begin();
-            
+
+            if (company.getAddress() != null) {
+
+                CityInfo city = getCityInfo(company.getAddress().getCity().getZipCode());
+
+                if (city != null) {
+                    company.getAddress().setCity(city);
+                    em.merge(company);
+                    em.getTransaction().commit();
+                    return company;
+                }
+            }
+
             em.persist(company);
-            
+
             em.getTransaction().commit();
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -51,6 +66,20 @@ public class CompanyFacade implements ICompanyFacade{
         }
 
         return company;
+    }
+
+    private CityInfo getCityInfo(int zipCode) {
+        CityInfo cityInfo = null;
+        EntityManager em = getEntityManager();
+
+        try {
+            cityInfo = em.createQuery("SELECT c FROM CityInfo c WHERE c.zip = :zip", CityInfo.class).setParameter("zip", zipCode).getResultList().get(0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return cityInfo;
     }
 
     @Override
@@ -66,7 +95,6 @@ public class CompanyFacade implements ICompanyFacade{
             e.printStackTrace();
         } finally {
             em.close();
-
         }
 
         return c;
@@ -74,7 +102,6 @@ public class CompanyFacade implements ICompanyFacade{
 
     @Override
     public List<Company> getCompanies() {
-
         List<Company> companies = new ArrayList();
         EntityManager em = getEntityManager();
 
@@ -83,6 +110,8 @@ public class CompanyFacade implements ICompanyFacade{
 
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            em.close();
         }
 
         return companies;
@@ -91,17 +120,112 @@ public class CompanyFacade implements ICompanyFacade{
 
     @Override
     public Company addPhoneToCompany(Phone phone, long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = getEntityManager();
+        Phone p = null;
+        Company c = null;
+
+        try {
+            em.getTransaction().begin();
+
+            c = em.find(Company.class, id);
+            p = em.find(Phone.class, phone.getId());
+
+            if (p == null) {
+                p = phone;
+
+            }
+
+            if (c != null) {
+                c.addPhone(p);
+                em.merge(c);
+
+                em.getTransaction().commit();
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+
+        return c;
     }
 
     @Override
     public Company addAddressToCompany(Address address, long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = getEntityManager();
+        Address a = null;
+        Company c = null;
+
+        try {
+            em.getTransaction().begin();
+
+            c = em.find(Company.class, id);
+            a = em.find(Address.class, address.getId());
+
+            if (a == null) {
+                a = address;
+
+            }
+
+            if (c != null) {
+                c.setAddress(a);
+                em.merge(c);
+                em.getTransaction().commit();
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+
+        return c;
     }
 
     @Override
     public Company deleteCompany(String cvr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = getEntityManager();
+        Company c = null;
+
+        try {
+            em.getTransaction().begin();
+
+            c = getCompany(cvr);
+
+            em.remove(c);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return c;
     }
-    
+
+    @Override
+    public Company editCompany(Company company, long id) {
+        EntityManager em = getEntityManager();
+        Company c = null;
+
+        try {
+            em.getTransaction().begin();
+
+            company.setId(id);
+            em.merge(company);
+
+            em.getTransaction().commit();
+
+            c = em.find(Company.class, id);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+
+        return c;
+    }
+
 }
