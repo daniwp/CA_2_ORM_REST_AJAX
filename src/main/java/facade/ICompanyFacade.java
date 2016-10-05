@@ -13,10 +13,12 @@ public interface ICompanyFacade {
 
     Company addCompany(Company company);
 
-    Company getCompany(String cvr);
-    
-    Company getCompany(long id);
+    Company getCompanyOnCvr(String cvr);
 
+    Company getCompanyOnId(long id);
+
+    //Company getCompanyOnPhone(String number);
+    
     List<Company> getCompanies();
 
     Company addPhoneToCompany(Phone phone, long id);

@@ -31,7 +31,6 @@ public class SchemaGenerator {
         Address address1 = new Address("Gaggervej 72", new CityInfo(3000, "Helsingoer"));
         Address address2 = new Address("Wall Street 983", new CityInfo(2820, "Gentofte"));
         
-        
         Phone ph = new Phone("93949192", "mobil");
         Phone ph1 = new Phone("1234567","mobil");
         Hobby hb = new Hobby("Football", "kick ball");

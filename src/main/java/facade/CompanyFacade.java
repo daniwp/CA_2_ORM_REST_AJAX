@@ -83,12 +83,12 @@ public class CompanyFacade implements ICompanyFacade {
     }
 
     @Override
-    public Company getCompany(String cvr) {
+    public Company getCompanyOnCvr(String cvr) {
         Company c = null;
         EntityManager em = getEntityManager();
 
         try {
-            c = em.createQuery("SELECT c FROM Company c WHERE c.cvr = :cvr", Company.class).setParameter("cvr", cvr).getSingleResult();
+            c = em.createQuery("SELECT c FROM Company c WHERE c.cvr = :cvr", Company.class).setParameter("cvr", cvr).getResultList().get(0);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -230,12 +230,11 @@ public class CompanyFacade implements ICompanyFacade {
     }
 
     @Override
-    public Company getCompany(long id) {
+    public Company getCompanyOnId(long id) {
         Company c = null;
         EntityManager em = getEntityManager();
 
         try {
-
             c = em.find(Company.class, id);
 
         } catch (Exception e) {
@@ -246,5 +245,26 @@ public class CompanyFacade implements ICompanyFacade {
 
         return c;
     }
+
+//    @Override
+//    public Company getCompanyOnPhone(String number) {
+//        EntityManager em = getEntityManager();
+//        Phone p = null;
+//        Company c = null;
+//
+//        try {
+//
+//            if (p != null) {
+//                c = em.createQuery("SELECT p.entity FROM Phone p WHERE p.number = :number", Company.class).setParameter("number", number).getResultList().get(0);
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            em.close();
+//        }
+//
+//        return c;
+//    }
 
 }

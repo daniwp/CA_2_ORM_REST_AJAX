@@ -46,11 +46,11 @@ public class CompanyResource {
     }
 
     @GET
-    @Path("/complete/{cvr}")
+    @Path("/complete/cvr/{cvr}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getComplete(@PathParam("cvr") String cvr) throws CustomException {
+    public Response getCompleteOnCvr(@PathParam("cvr") String cvr) throws CustomException {
 
-        Company c = cFacade.getCompany(cvr);
+        Company c = cFacade.getCompanyOnCvr(cvr);
 
         if (c == null) {
             throw new CustomException(404, "No company with that cvr was found");
@@ -58,7 +58,21 @@ public class CompanyResource {
 
         return Response.ok().entity(jCon.getJsonFromCompanyAllDetails(c)).build();
     }
-
+    
+//    @GET
+//    @Path("/complete/phone/{phone}")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response getCompleteOnPhone(@PathParam("phone") String phone) throws CustomException {
+//
+//        Company c = cFacade.getCompanyOnPhone(phone);
+//
+//        if (c == null) {
+//            throw new CustomException(404, "No company with that number was found");
+//        }
+//
+//        return Response.ok().entity(jCon.getJsonFromCompanyAllDetails(c)).build();
+//    }
+    
     @GET
     @Path("/contactinfo")
     @Produces(MediaType.APPLICATION_JSON)
@@ -71,7 +85,7 @@ public class CompanyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getContact(@PathParam("cvr") String cvr) throws CustomException {
 
-        Company c = cFacade.getCompany(cvr);
+        Company c = cFacade.getCompanyOnCvr(cvr);
 
         if (c == null) {
             throw new CustomException(404, "No company with that cvr was found");
@@ -120,7 +134,7 @@ public class CompanyResource {
             throw new CustomException(400, "Bad request - Must at least contain a name, description, email, cvr, numEmployees and marketValue in JSON format");
         }
 
-        if (cFacade.getCompany(id) == null) {
+        if (cFacade.getCompanyOnId(id) == null) {
             throw new CustomException(404, "No company with that id was found");
         }
 

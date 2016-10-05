@@ -23,10 +23,10 @@ public class Phone implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private String number;
     private String description;
-    
+
     @ManyToOne
     private InfoEntity entity;
 
@@ -94,5 +94,5 @@ public class Phone implements Serializable {
     public String toString() {
         return "entities.Phone[ id=" + id + " ]";
     }
-    
+
 }
