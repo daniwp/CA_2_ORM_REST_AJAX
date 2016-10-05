@@ -185,17 +185,19 @@ public class CompanyFacade implements ICompanyFacade {
     }
 
     @Override
-    public Company deleteCompany(String cvr) {
+    public Company deleteCompany(long id) {
         EntityManager em = getEntityManager();
         Company c = null;
 
         try {
+
             em.getTransaction().begin();
 
-            c = getCompany(cvr);
+            c = em.find(Company.class, id);
 
             em.remove(c);
 
+            em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -5,6 +5,7 @@ import entities.Person;
 import exceptions.CustomException;
 import facade.CompanyFacade;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -92,6 +93,20 @@ public class CompanyResource {
 
         return Response.ok().entity(jCon.getJsonFromCompanyAllDetails(cFacade.addCompany(jCon.getCompanyFromJson(content)))).build();
     }
+    
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("id") long id) throws CustomException {
+
+        Company c = cFacade.deleteCompany(id);
+
+        if (c == null) {
+            throw new CustomException(404, "No company with that id was found");
+        }
+
+        return Response.ok().entity(jCon.getJsonFromCompanyAllDetails(c)).build();
+    }
 
     @PUT
     @Path("/{id}")
@@ -106,10 +121,9 @@ public class CompanyResource {
         }
 
         if (cFacade.getCompany(id) == null) {
-            throw new CustomException(404, "No person with that id was found");
+            throw new CustomException(404, "No company with that id was found");
         }
 
         return Response.ok().entity(jCon.getJsonFromCompanyAllDetails(cFacade.editCompany(jCon.getCompanyFromJson(content), id))).build();
     }
-
 }

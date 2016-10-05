@@ -25,6 +25,6 @@ public interface ICompanyFacade {
 
     Company editCompany(Company company, long id);
 
-    Company deleteCompany(String cvr);
+    Company deleteCompany(long id);
 
 }
