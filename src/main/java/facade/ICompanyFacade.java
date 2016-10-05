@@ -14,6 +14,8 @@ public interface ICompanyFacade {
     Company addCompany(Company company);
 
     Company getCompany(String cvr);
+    
+    Company getCompany(long id);
 
     List<Company> getCompanies();
 

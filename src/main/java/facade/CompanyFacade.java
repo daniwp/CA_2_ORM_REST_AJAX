@@ -88,7 +88,6 @@ public class CompanyFacade implements ICompanyFacade {
         EntityManager em = getEntityManager();
 
         try {
-            em.getTransaction().begin();
             c = em.createQuery("SELECT c FROM Company c WHERE c.cvr = :cvr", Company.class).setParameter("cvr", cvr).getSingleResult();
 
         } catch (Exception e) {
@@ -216,6 +215,24 @@ public class CompanyFacade implements ICompanyFacade {
             em.merge(company);
 
             em.getTransaction().commit();
+
+            c = em.find(Company.class, id);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+
+        return c;
+    }
+
+    @Override
+    public Company getCompany(long id) {
+        Company c = null;
+        EntityManager em = getEntityManager();
+
+        try {
 
             c = em.find(Company.class, id);
 
