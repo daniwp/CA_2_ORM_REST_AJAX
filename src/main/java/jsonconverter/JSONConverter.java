@@ -250,7 +250,47 @@ public class JSONConverter implements IJSONConverter {
      */
     @Override
     public Company getCompanyFromJson(String content) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        Company c = null;
+
+        try {
+
+            JsonObject json = new JsonParser().parse(content).getAsJsonObject();
+
+            String name = json.get("name").getAsString();
+            String description = json.get("description").getAsString();
+            String email = json.get("email").getAsString();
+            String cvr = json.get("cvr").getAsString();
+            int numEmployees = json.get("numEmployees").getAsInt();
+            int marketValue = json.get("marketValue").getAsInt();
+
+            c = new Company(name, description, cvr, numEmployees, marketValue, email);
+
+            if (json.get("street") != null) {
+
+                String street = json.get("street").getAsString();
+                int zipcode = json.get("zipcode").getAsInt();
+                String city = json.get("city").getAsString();
+
+                c.setAddress(new Address(street, new CityInfo(zipcode, city)));
+            }
+
+            if (json.get("phones") != null) {
+
+                for (JsonElement e : json.getAsJsonArray("phones")) {
+
+                    String number = e.getAsJsonObject().get("number").getAsString();
+                    String descr = e.getAsJsonObject().get("description").getAsString();
+
+                    c.addPhone(new Phone(number, description));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return c;
     }
 
     @Override
@@ -266,6 +306,7 @@ public class JSONConverter implements IJSONConverter {
 
         json.addProperty("name", company.getName());
         json.addProperty("description", company.getDescription());
+        json.addProperty("email", company.getEmail());
         json.addProperty("cvr", company.getCvr());
         json.addProperty("numEmployees", company.getNumEmployees());
         json.addProperty("marketValue", company.getMarketValue());
@@ -336,6 +377,7 @@ public class JSONConverter implements IJSONConverter {
 
             json.addProperty("name", c.getName());
             json.addProperty("description", c.getDescription());
+            json.addProperty("email", c.getEmail());
             json.addProperty("cvr", c.getCvr());
             json.addProperty("numEmployees", c.getNumEmployees());
             json.addProperty("marketValue", c.getMarketValue());
