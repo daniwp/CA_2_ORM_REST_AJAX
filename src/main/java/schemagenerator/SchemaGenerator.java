@@ -5,9 +5,6 @@ import entities.CityInfo;
 import entities.Hobby;
 import entities.Person;
 import entities.Phone;
-import facade.PersonFacade;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 

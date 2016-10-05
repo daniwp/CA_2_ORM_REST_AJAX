@@ -23,21 +23,21 @@ import javax.persistence.OneToMany;
  * @author danie
  */
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class InfoEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private String email;
-    
-    @OneToMany(cascade=(CascadeType.ALL))
+
+    @OneToMany(cascade = (CascadeType.PERSIST))
     private List<Phone> phones = new ArrayList();
-    
-    @ManyToOne(cascade=(CascadeType.ALL))
+
+    @ManyToOne(cascade = (CascadeType.PERSIST))
     private Address address;
 
     public InfoEntity() {
@@ -46,7 +46,7 @@ public class InfoEntity implements Serializable {
     public InfoEntity(String email) {
         this.email = email;
     }
-    
+
     public void addPhone(Phone phone) {
         phones.add(phone);
     }
@@ -107,5 +107,5 @@ public class InfoEntity implements Serializable {
     public String toString() {
         return "entities.InfoEntity[ id=" + id + " ]";
     }
-    
+
 }
