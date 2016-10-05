@@ -247,16 +247,6 @@ public class JSONConverter implements IJSONConverter {
      * Company Converter Methods
      */
     @Override
-    public String getJsonFromCompany(Company company) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getJsonFromCompanies(List<Company> companies) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public Company getCompanyFromJson(String content) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -264,5 +254,55 @@ public class JSONConverter implements IJSONConverter {
     @Override
     public String getCompanyInfoASJson(Company company) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getJsonFromCompanyAllDetails(Company company) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getJsonFromCompanyContactInfo(Company company) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getJsonFromCompaniesAllInfo(List<Company> companies) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getJsonFromCompaniesContactInfo(List<Company> companies) {
+
+        List<JsonObject> jsonCompanies = new ArrayList();
+
+        for (Company c : companies) {
+
+            JsonObject json = new JsonObject();
+            JsonArray phones = new JsonArray();
+
+            json.addProperty("id", c.getId());
+            json.addProperty("name", c.getName());
+            json.addProperty("email", c.getEmail());
+
+            if (!c.getPhones().isEmpty()) {
+
+                for (Phone phone : c.getPhones()) {
+
+                    JsonObject jsonPhone = new JsonObject();
+                    jsonPhone.addProperty("number", phone.getNumber());
+                    jsonPhone.addProperty("description", phone.getDescription());
+
+                    phones.add(jsonPhone);
+                }
+
+                json.add("phones", phones);
+            }
+
+            jsonCompanies.add(json);
+        }
+
+        return getGsonInstance().toJson(jsonCompanies);
+
     }
 }
