@@ -23,6 +23,7 @@ public class SchemaGenerator {
 
         Address address = new Address("Nygardsvej 123", new CityInfo(2980, "Kokkedal"));
         Phone ph = new Phone("93949192", "mobil");
+        Phone ph1 = new Phone("1234567","mobil");
         Hobby hb = new Hobby("Football", "kick ball");
         Hobby hb1 = new Hobby("Tennis", "hit ball");
         Hobby hb2 = new Hobby("Swimming", "swim in water");
@@ -33,6 +34,7 @@ public class SchemaGenerator {
         p.addHobby(hb2);
         p1.addHobby(hb3);
         p.addPhone(ph);
+        p.addPhone(ph1);
         p.setAddress(address);
         p1.setAddress(address);
 
