@@ -1,25 +1,82 @@
-//package testerpackage;
-//import io.restassured.RestAssured;
-//import static io.restassured.RestAssured.*;
-//import io.restassured.parsing.Parser;
-//import static org.hamcrest.Matchers.*;
+package testerpackage;
 
+import static io.restassured.RestAssured.*;
+import io.restassured.http.ContentType;
+import static org.hamcrest.Matchers.*;
 import org.junit.Test;
 
 /**
  *
- * @author Shmilo
+ * @author John
  */
 public class PersonIntegrationTest {
+
+    private String baseUrl = "http://localhost:8084/CA2REST/api/person";
 
     public PersonIntegrationTest() {
     }
 
     @Test
     public void VerifyAllPersons() {
-        //get("localhost:8084/CA2REST/api/person/complete").
-        //      then().statusCode(200);
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get(baseUrl + "/complete")
+                .then()
+                .statusCode(200)
+                //Checking for dummy-data in several json objects
+                .body("firstname", hasItems("Daniel", "Mohammed", "David"));
+
     }
-    // TODO add test methods here. The name must begin with 'test'. For example:
-    // public void testHello() {}
+
+    @Test
+    public void VerifyPersonById() {
+        given()
+                .contentType(ContentType.JSON)
+                .pathParam("id", 1)
+                .when()
+                .get(baseUrl + "/complete/{id}")
+                .then()
+                .statusCode(200)
+                .body("firstname", equalTo("Daniel"))
+                .body("email", equalTo("dwp@dwp.com")); //email of person with id=1;
+    }
+
+    @Test
+    public void VerifyContacts() {
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get(baseUrl + "/contactinfo")
+                .then()
+                .statusCode(200)
+                .body("id", hasItems(1, 2, 3));
+    }
+
+    @Test
+    public void VerifyContactById() {
+        int id = 1;
+        given()
+                .contentType(ContentType.JSON)
+                .pathParam("id", id)
+                .when()
+                .get(baseUrl + "/contactinfo/{id}")
+                .then()
+                .statusCode(200)
+                .body("id", equalTo(id));
+    }
+
+    @Test
+    public void VerifyContactByIdException() {
+        int id = 999;
+        given()
+                .contentType(ContentType.JSON)
+                .pathParam("id", id)
+                .when()
+                .get(baseUrl + "/contactinfo/{id}")
+                .then()
+                .statusCode(404)
+                .body("message", equalTo("No person with that id was found"));
+    }
+
 }
