@@ -75,16 +75,16 @@ public class CompanyIntegrationTest {
                 .body("name", equalTo("DWP Web"));
     }
     
-//    @Test
-//    public void VerifyContactInfo() {
-//        given()
-//                .contentType(ContentType.JSON)
-//                .when()
-//                .get(baseUrl + "/contactinfo")
-//                .then()
-//                .statusCode(200)
-//                .body("", hasItems("id", "name", "email"));
-//    }
+    @Test
+    public void VerifyContactInfo() {
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get(baseUrl + "/contactinfo")
+                .then()
+                .statusCode(200)
+                .body("id", hasItems(1,2,3));
+    }
     
 }
 
