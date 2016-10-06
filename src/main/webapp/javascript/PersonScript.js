@@ -18,7 +18,7 @@ $(document).ready(function () {
                 $('#person').append('<tr>' + output + '</tr>');
             });
         }, error: function (res) {
-            console.log(res);
+            alert("failure");
         }
     });
 
@@ -34,21 +34,14 @@ $(document).ready(function () {
                 output += typeof person.id !== "undefined" ? '<td>' + person.id + '</td>' : '<td>-</td>';
                 output += typeof person.name !== "undefined" ? '<td>' + person.name + '</td>' : '<td>-</td>';
                 output += typeof person.email !== "undefined" ? '<td>' + person.email + '</td>' : '<td>-</td>';
-                var phone = [];
-                phone = person.phones;
-                $.each(phone, function(p) {
-                    console.log(phone);
-                    output += typeof phone[p].description !== "undefined" ? '<td>' + phone[p].description + '</td>' : '<td>-</td>';
-                    output += typeof phone[p].number !== "undefined" ? '<td>' + phone[p].number + '</td>' : '<td>-</td>';
-                });
                 $('#contact').append('<tr>' + output + '</tr>');
             });
         }, error: function (res) {
-            console.log(res);
+            console.log("error in person table" + res);
         }
 
     });
-        $.ajax({
+    $.ajax({
         url: 'http://localhost:8084/CA2REST/api/person/contactinfo',
         type: 'GET',
         dataType: "json",
@@ -61,7 +54,7 @@ $(document).ready(function () {
                 output += typeof person.name !== "undefined" ? '<ul>' + person.name + '</ul>' : '<ul>-</ul>';
                 var phone = [];
                 phone = person.phones;
-                $.each(phone, function(p) {
+                $.each(phone, function (p) {
                     console.log(phone);
                     output += typeof phone[p].description !== "undefined" ? '<ul>' + phone[p].description + '</ul>' : '<ul>-</ul>';
                     output += typeof phone[p].number !== "undefined" ? '<ul>' + phone[p].number + '</ul>' : '<ul>-</ul>';
@@ -69,13 +62,33 @@ $(document).ready(function () {
                 $('#list').append('<ul>' + output + '</ul>');
             });
         }, error: function (res) {
-            console.log(res);
+            console.log("error in person table" + res);
         }
 
     });
-    $("#list").css("display","none");
-    $("#phonelist").click(function(){
-        $("#list").css("display","block");
+    $("#list").css("display", "none");
+    $("#phonelist").click(function () {
+        $("#list").css("display", "block");
+    });
+    $.ajax({
+        url: 'http://localhost:8084/CA2REST/api/company/complete',
+        type: "GET",
+        dataType: "json",
+        success: function (m) {
+            m.forEach(function (company) {
+                var coutput = "";
+                coutput += typeof company.name !== "undefined" ? '<td>' + company.name + '</td>' : '<td>-</td>';
+                coutput += typeof company.email !== "undefined" ? '<td>' + company.email + '</td>' : '<td>-</td>';
+                coutput += typeof company.description !== "undefined" ? '<td>' + company.description + '</td>' : '<td>-</td>';
+                coutput += typeof company.cvr !== "undefined" ? '<td>' + company.cvr + '</td>' : '<td>-</td>';
+                coutput += typeof company.numEmployees !== "undefined" ? '<td>' + company.numEmployees + '</td>' : '<td>-</td>';
+                coutput += typeof company.marketValue !== "undefined" ? '<td>' + company.marketValue + '</td>' : '<td>-</td>';
+                $('#companybody').append('<tr>' + coutput + '</tr>');
+                console.log(coutput);
+            });
+        }, error: function (res) {
+            console.log(res);
+        }
     });
 });
 

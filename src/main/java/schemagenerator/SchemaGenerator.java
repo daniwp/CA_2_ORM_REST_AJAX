@@ -38,7 +38,8 @@ public class SchemaGenerator {
         Hobby hb1 = new Hobby("Tennis", "hit ball");
         Hobby hb2 = new Hobby("Swimming", "swim in water");
         Hobby hb3 = new Hobby("Running", "run Forest run!");
-
+        
+        
         c.addPhone(ph);
         c3.addPhone(ph1);
 
