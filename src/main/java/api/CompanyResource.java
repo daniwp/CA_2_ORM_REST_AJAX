@@ -1,9 +1,9 @@
 package api;
 
 import entities.Company;
-import entities.Person;
 import exceptions.CustomException;
 import facade.CompanyFacade;
+import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -41,8 +41,14 @@ public class CompanyResource {
     @GET
     @Path("/complete")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllComplete() {
-        return Response.ok().entity(jCon.getJsonFromCompaniesAllDetails(cFacade.getCompanies())).build();
+    public Response getAllComplete() throws CustomException {
+        List<Company> companies = cFacade.getCompanies();
+
+        if (companies.isEmpty()) {
+            throw new CustomException(404, "No companies has been added yet");
+        }
+
+        return Response.ok().entity(jCon.getJsonFromCompaniesAllDetails(companies)).build();
     }
 
     @GET
@@ -58,26 +64,32 @@ public class CompanyResource {
 
         return Response.ok().entity(jCon.getJsonFromCompanyAllDetails(c)).build();
     }
-    
-//    @GET
-//    @Path("/complete/phone/{phone}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getCompleteOnPhone(@PathParam("phone") String phone) throws CustomException {
-//
-//        Company c = cFacade.getCompanyOnPhone(phone);
-//
-//        if (c == null) {
-//            throw new CustomException(404, "No company with that number was found");
-//        }
-//
-//        return Response.ok().entity(jCon.getJsonFromCompanyAllDetails(c)).build();
-//    }
-    
+
+    @GET
+    @Path("/complete/phone/{phone}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCompleteOnPhone(@PathParam("phone") String phone) throws CustomException {
+
+        Company c = cFacade.getCompanyOnPhone(phone);
+
+        if (c == null) {
+            throw new CustomException(404, "No company with that number was found");
+        }
+
+        return Response.ok().entity(jCon.getJsonFromCompanyAllDetails(c)).build();
+    }
+
     @GET
     @Path("/contactinfo")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllContact() {
-        return Response.ok().entity(jCon.getJsonFromCompaniesContactInfo(cFacade.getCompanies())).build();
+    public Response getAllContact() throws CustomException {
+        List<Company> companies = cFacade.getCompanies();
+
+        if (companies.isEmpty()) {
+            throw new CustomException(404, "No companies has been added yet");
+        }
+
+        return Response.ok().entity(jCon.getJsonFromCompaniesContactInfo(companies)).build();
     }
 
     @GET
@@ -107,7 +119,7 @@ public class CompanyResource {
 
         return Response.ok().entity(jCon.getJsonFromCompanyAllDetails(cFacade.addCompany(jCon.getCompanyFromJson(content)))).build();
     }
-    
+
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)

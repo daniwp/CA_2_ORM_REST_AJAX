@@ -17,8 +17,8 @@ public interface ICompanyFacade {
 
     Company getCompanyOnId(long id);
 
-    //Company getCompanyOnPhone(String number);
-    
+    Company getCompanyOnPhone(String number);
+
     List<Company> getCompanies();
 
     Company addPhoneToCompany(Phone phone, long id);

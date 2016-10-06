@@ -300,4 +300,26 @@ public class PersonFacade implements IPersonFacade {
 
         return person;
     }
+
+    @Override
+    public Person getPersonOnPhone(String number) {
+        EntityManager em = getEntityManager();
+        Person person = null;
+        long phoneID = -1;
+        long personID = -1;
+
+        try {
+            phoneID = em.createQuery("SELECT p.id FROM Phone p WHERE p.number = :number", Long.class).setParameter("number", number).getSingleResult();
+            personID = (long) em.createNativeQuery("SELECT person_phone.`Person_ID` FROM person_phone WHERE `phones_ID` = ?id").setParameter("id", phoneID).getSingleResult();
+
+            person = em.find(Person.class, personID);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+
+        return person;
+    }
 }
