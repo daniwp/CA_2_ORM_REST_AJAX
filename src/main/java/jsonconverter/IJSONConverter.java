@@ -12,12 +12,12 @@ import java.util.List;
  */
 public interface IJSONConverter {
     
-    public String getPersonInfoAsJson(String phoneNumber);
     public String getCompanyInfoASJson(Company company);
     
     public String getJsonFromInteger(int number);
     public String getZipsToJson(List<CityInfo> cities);
     
+    public String getJsonFromPersonAllDetailsIncHobbies(Person person);
     public String getJsonFromPersonAllDetails(Person person);
     public String getJsonFromPersonsAllDetails(List<Person> persons);
     public String getJsonFromPersonContactInfo(Person person);

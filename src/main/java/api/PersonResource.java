@@ -104,7 +104,7 @@ public class PersonResource {
             throw new CustomException(404, "No person with that number was found");
         }
 
-        return Response.ok().entity(jCon.getJsonFromPersonAllDetails(p)).build();
+        return Response.ok().entity(jCon.getJsonFromPersonAllDetailsIncHobbies(p)).build();
     }
 
     @POST

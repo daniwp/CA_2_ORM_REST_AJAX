@@ -10,6 +10,7 @@ import com.google.gson.JsonParser;
 import entities.Address;
 import entities.CityInfo;
 import entities.Company;
+import entities.Hobby;
 import entities.Person;
 import entities.Phone;
 import java.util.ArrayList;
@@ -238,11 +239,6 @@ public class JSONConverter implements IJSONConverter {
         return p;
     }
 
-    @Override
-    public String getPersonInfoAsJson(String phoneNumber) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     /**
      *
      * Company Converter Methods
@@ -445,5 +441,56 @@ public class JSONConverter implements IJSONConverter {
         }
 
         return getGsonInstance().toJson(jsonCompanies);
+    }
+
+    @Override
+    public String getJsonFromPersonAllDetailsIncHobbies(Person person) {
+        JsonObject json = new JsonObject();
+        JsonArray phones = new JsonArray();
+        JsonArray hobbies = new JsonArray();
+
+        json.addProperty("firstname", person.getFirstName());
+        json.addProperty("lastname", person.getLastName());
+        json.addProperty("email", person.getEmail());
+
+        if (!person.getPhones().isEmpty()) {
+
+            for (Phone phone : person.getPhones()) {
+
+                JsonObject jsonPhone = new JsonObject();
+                jsonPhone.addProperty("number", phone.getNumber());
+                jsonPhone.addProperty("description", phone.getDescription());
+
+                phones.add(jsonPhone);
+            }
+
+            json.add("phones", phones);
+        }
+
+        if (person.getAddress() != null) {
+            json.addProperty("street", person.getAddress().getStreet());
+
+            if (person.getAddress().getCity() != null) {
+                json.addProperty("zipcode", person.getAddress().getCity().getZipCode());
+                json.addProperty("city", person.getAddress().getCity().getCity());
+
+            }
+        }
+
+        if (!person.getHobbies().isEmpty()) {
+
+            for (Hobby hobby : person.getHobbies()) {
+
+                JsonObject jsonHobby = new JsonObject();
+                jsonHobby.addProperty("name", hobby.getName());
+                jsonHobby.addProperty("description", hobby.getDescription());
+
+                hobbies.add(jsonHobby);
+            }
+
+            json.add("hobbies", hobbies);
+        }
+
+        return getGsonInstance().toJson(json);
     }
 }
