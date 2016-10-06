@@ -333,13 +333,13 @@ public class PersonFacade implements IPersonFacade {
         List<Person> persons = new ArrayList();
 
         try {
-            h = em.createQuery("SELECT h FROM Hobby h WHERE h.name = :name", Hobby.class).setParameter("name", name).getSingleResult();
+            h = em.createQuery("SELECT h FROM Hobby h WHERE h.name = :name", Hobby.class).setParameter("name", name).getResultList().get(0);
 
             if (h == null) {
                 return persons;
             }
 
-            personIDs = em.createNativeQuery("SELECT person_hobby.`persons_ID` FROM person_hobby WHERE `hobbies_ID` = ?id").setParameter("id", h.getId()).getResultList();
+            personIDs = (List<Long>) em.createNativeQuery("SELECT person_hobby.`persons_ID` FROM person_hobby WHERE `hobbies_ID` = ?id").setParameter("id", h.getId()).getResultList();
 
             if (personIDs.isEmpty()) {
                 return persons;

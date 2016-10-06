@@ -33,13 +33,12 @@ public class SchemaGenerator {
 
         Phone ph = new Phone("93949192", "mobil");
         Phone ph1 = new Phone("1234567", "mobil");
-        
+
         Hobby hb = new Hobby("Football", "kick ball");
         Hobby hb1 = new Hobby("Tennis", "hit ball");
         Hobby hb2 = new Hobby("Swimming", "swim in water");
         Hobby hb3 = new Hobby("Running", "run Forest run!");
-        
-        
+
         c.addPhone(ph);
         c3.addPhone(ph1);
 
@@ -48,9 +47,9 @@ public class SchemaGenerator {
         c3.setAddress(address2);
 
         p.addHobby(hb);
-        p.addHobby(hb1);
+        p1.addHobby(hb);
         p.addHobby(hb2);
-        p1.addHobby(hb3);
+        p.addHobby(hb3);
 
         p.addPhone(ph);
         p.addPhone(ph1);
