@@ -251,12 +251,15 @@ public class CompanyFacade implements ICompanyFacade {
         EntityManager em = getEntityManager();
         Phone p = null;
         Company c = null;
+        long phoneID = -1;
+        long companyID = -1;
 
         try {
 
-            if (p != null) {
-                c = em.createQuery("SELECT p.entity FROM Phone p WHERE p.number = :number", Company.class).setParameter("number", number).getResultList().get(0);
-            }
+            phoneID = em.createQuery("SELECT p.id FROM Phone p WHERE p.number = :number", Long.class).setParameter("number", number).getSingleResult();
+            companyID = (long) em.createNativeQuery("SELECT company_phone.`Company_ID` FROM company_phone WHERE `phones_ID` = ?id").setParameter("id", phoneID).getSingleResult();
+
+            c = em.find(Company.class, companyID);
 
         } catch (Exception e) {
             e.printStackTrace();

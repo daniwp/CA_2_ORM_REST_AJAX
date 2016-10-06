@@ -65,19 +65,20 @@ public class CompanyResource {
         return Response.ok().entity(jCon.getJsonFromCompanyAllDetails(c)).build();
     }
 
-//    @GET
-//    @Path("/complete/phone/{phone}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getCompleteOnPhone(@PathParam("phone") String phone) throws CustomException {
-//
-//        Company c = cFacade.getCompanyOnPhone(phone);
-//
-//        if (c == null) {
-//            throw new CustomException(404, "No company with that number was found");
-//        }
-//
-//        return Response.ok().entity(jCon.getJsonFromCompanyAllDetails(c)).build();
-//    }
+    @GET
+    @Path("/complete/phone/{phone}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCompleteOnPhone(@PathParam("phone") String phone) throws CustomException {
+
+        Company c = cFacade.getCompanyOnPhone(phone);
+
+        if (c == null) {
+            throw new CustomException(404, "No company with that number was found");
+        }
+
+        return Response.ok().entity(jCon.getJsonFromCompanyAllDetails(c)).build();
+    }
+
     @GET
     @Path("/contactinfo")
     @Produces(MediaType.APPLICATION_JSON)
