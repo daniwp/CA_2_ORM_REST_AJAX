@@ -10,6 +10,8 @@ import java.util.List;
  * @author Daniel
  */
 public interface ICompanyFacade {
+    
+    List<Company> getCompaniesEmployeesMoreThan(int employeeNumber);
 
     Company addCompany(Company company);
 

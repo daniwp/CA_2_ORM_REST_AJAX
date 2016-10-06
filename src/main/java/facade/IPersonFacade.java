@@ -6,6 +6,7 @@
 package facade;
 
 import entities.Address;
+import entities.CityInfo;
 import entities.Hobby;
 import entities.Person;
 import entities.Phone;
@@ -16,6 +17,8 @@ import java.util.List;
  * @author HazemSaeid
  */
 public interface IPersonFacade {
+    
+    List<CityInfo> getCities();
 
     Person getPerson(long id);
 
@@ -24,10 +27,12 @@ public interface IPersonFacade {
     List<Person> getPersonsFromZipcode(int zipCode);
 
     Person getPersonOnPhone(String number);
-    
+
     List<Person> getPersonsWithHobby(String name);
 
     Person addPerson(Person person);
+    
+    long getNumberOfPersonsWithHobby(String name);
 
     Person addHobbyToPerson(Hobby hobby, long id);
 

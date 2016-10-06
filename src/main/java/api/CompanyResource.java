@@ -64,6 +64,20 @@ public class CompanyResource {
 
         return Response.ok().entity(jCon.getJsonFromCompanyAllDetails(c)).build();
     }
+    
+    @GET
+    @Path("/complete/employees/{number}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCompleteWithEmployeeNumberMoreThan(@PathParam("number") int number) throws CustomException {
+
+        List<Company> companies = cFacade.getCompaniesEmployeesMoreThan(number);
+
+        if (companies.isEmpty()) {
+            throw new CustomException(404, "No companies with more than the given number of employees was found");
+        }
+
+        return Response.ok().entity(jCon.getJsonFromCompaniesAllDetails(companies)).build();
+    }
 
     @GET
     @Path("/complete/phone/{phone}")

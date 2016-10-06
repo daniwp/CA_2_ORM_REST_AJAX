@@ -2,7 +2,6 @@ package facade;
 
 import entities.Address;
 import entities.CityInfo;
-import entities.Company;
 import entities.Hobby;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -354,5 +353,48 @@ public class PersonFacade implements IPersonFacade {
         }
 
         return persons;
+    }
+
+    @Override
+    public List<CityInfo> getCities() {
+        EntityManager em = getEntityManager();
+        List<CityInfo> cities = new ArrayList();
+
+        try {
+            cities = em.createQuery("SELECT c FROM CityInfo c", CityInfo.class).getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+
+        return cities;
+    }
+
+    @Override
+    public long getNumberOfPersonsWithHobby(String name) {
+        EntityManager em = getEntityManager();
+        Hobby h = null;
+
+        List<Long> personIDs = new ArrayList();
+        int count = -1;
+
+        try {
+            h = em.createQuery("SELECT h FROM Hobby h WHERE h.name = :name", Hobby.class).setParameter("name", name).getResultList().get(0);
+
+            if (h == null) {
+                return count;
+            }
+
+            personIDs = (List<Long>) em.createNativeQuery("SELECT person_hobby.`persons_ID` FROM person_hobby WHERE `hobbies_ID` = ?id").setParameter("id", h.getId()).getResultList();
+
+            count = personIDs.size();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return count;
     }
 }

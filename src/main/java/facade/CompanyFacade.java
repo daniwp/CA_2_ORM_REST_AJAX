@@ -267,4 +267,21 @@ public class CompanyFacade implements ICompanyFacade {
 
         return c;
     }
+
+    @Override
+    public List<Company> getCompaniesEmployeesMoreThan(int employeeNumber) {
+        EntityManager em = getEntityManager();
+        List<Company> companies = new ArrayList();
+
+        try {
+            companies = em.createQuery("SELECT c FROM Company c WHERE c.numEmployees > :num", Company.class).setParameter("num", employeeNumber).getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+
+        return companies;
+    }
 }

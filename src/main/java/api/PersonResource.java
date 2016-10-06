@@ -1,6 +1,7 @@
 package api;
 
-import entities.Company;
+import entities.CityInfo;
+import static entities.Hobby_.persons;
 import entities.Person;
 import exceptions.CustomException;
 import facade.PersonFacade;
@@ -131,6 +132,32 @@ public class PersonResource {
         }
 
         return Response.ok().entity(jCon.getJsonFromPersonsAllDetails(persons)).build();
+    }
+
+    @GET
+    @Path("/cities")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllCities() throws CustomException {
+        List<CityInfo> cities = pFacade.getCities();
+
+        if (cities.isEmpty()) {
+            throw new CustomException(404, "No cities were found");
+        }
+
+        return Response.ok().entity(jCon.getGsonInstance().toJson(cities)).build();
+    }
+
+    @GET
+    @Path("/hobby/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getNumberOfPersonsWithHobby(@PathParam("name") String name) throws CustomException {
+        long count = pFacade.getNumberOfPersonsWithHobby(name);
+
+        if (count == -1) {
+            throw new CustomException(404, "Nobody with the given hobby were found");
+        }
+
+        return Response.ok().entity(jCon.getGsonInstance().toJson(count)).build();
     }
 
     @POST
