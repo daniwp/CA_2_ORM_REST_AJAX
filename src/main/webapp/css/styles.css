@@ -1,0 +1,17 @@
+.section-persons {
+    background-color: #f7f7f7;
+    padding-bottom: 60px;
+}
+
+table {
+    background-color: white;
+    border-color: blue;
+}
+
+td, tr, table {
+    border-color: blue;
+}
+
+.section-companies {
+
+}
