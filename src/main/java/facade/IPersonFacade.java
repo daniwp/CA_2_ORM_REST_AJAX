@@ -23,6 +23,8 @@ public interface IPersonFacade {
 
     List<Person> getPersonsFromZipcode(int zipCode);
 
+    Person getPersonOnPhone(String number);
+
     Person addPerson(Person person);
 
     Person addHobbyToPerson(Hobby hobby, long id);
@@ -34,6 +36,6 @@ public interface IPersonFacade {
     Person addAddressToPerson(Address address, long id);
 
     Person deletePerson(long id);
-    
+
     Person editPerson(Person person, long id);
 }

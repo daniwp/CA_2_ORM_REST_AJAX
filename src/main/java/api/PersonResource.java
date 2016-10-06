@@ -1,8 +1,10 @@
 package api;
 
+import entities.Company;
 import entities.Person;
 import exceptions.CustomException;
 import facade.PersonFacade;
+import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.core.Context;
@@ -54,8 +56,14 @@ public class PersonResource {
     @GET
     @Path("/complete")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllComplete() {
-        return Response.ok().entity(jCon.getJsonFromPersonsAllDetails(pFacade.getPersons())).build();
+    public Response getAllComplete() throws CustomException {
+        List<Person> persons = pFacade.getPersons();
+
+        if (persons.isEmpty()) {
+            throw new CustomException(404, "No persons have been added yet");
+        }
+
+        return Response.ok().entity(jCon.getJsonFromPersonsAllDetails(persons)).build();
     }
 
     @GET
@@ -75,8 +83,28 @@ public class PersonResource {
     @GET
     @Path("/contactinfo")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllContact() {
-        return Response.ok().entity(jCon.getJsonFromPersonsContactInfo(pFacade.getPersons())).build();
+    public Response getAllContact() throws CustomException {
+        List<Person> persons = pFacade.getPersons();
+
+        if (persons.isEmpty()) {
+            throw new CustomException(404, "No persons have been added yet");
+        }
+
+        return Response.ok().entity(jCon.getJsonFromPersonsContactInfo(persons)).build();
+    }
+
+    @GET
+    @Path("/complete/phone/{phone}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCompleteOnPhone(@PathParam("phone") String phone) throws CustomException {
+
+        Person p = pFacade.getPersonOnPhone(phone);
+
+        if (p == null) {
+            throw new CustomException(404, "No person with that number was found");
+        }
+
+        return Response.ok().entity(jCon.getJsonFromPersonAllDetails(p)).build();
     }
 
     @POST

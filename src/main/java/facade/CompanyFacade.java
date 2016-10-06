@@ -249,13 +249,11 @@ public class CompanyFacade implements ICompanyFacade {
     @Override
     public Company getCompanyOnPhone(String number) {
         EntityManager em = getEntityManager();
-        Phone p = null;
         Company c = null;
         long phoneID = -1;
         long companyID = -1;
 
         try {
-
             phoneID = em.createQuery("SELECT p.id FROM Phone p WHERE p.number = :number", Long.class).setParameter("number", number).getSingleResult();
             companyID = (long) em.createNativeQuery("SELECT company_phone.`Company_ID` FROM company_phone WHERE `phones_ID` = ?id").setParameter("id", phoneID).getSingleResult();
 
@@ -269,5 +267,4 @@ public class CompanyFacade implements ICompanyFacade {
 
         return c;
     }
-
 }
