@@ -120,6 +120,19 @@ public class PersonResource {
         return Response.ok().entity(jCon.getJsonFromPersonsAllDetails(persons)).build();
     }
 
+    @GET
+    @Path("/complete/zipcode/{zip}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllInCity(@PathParam("zip") int zip) throws CustomException {
+        List<Person> persons = pFacade.getPersonsFromZipcode(zip);
+
+        if (persons.isEmpty()) {
+            throw new CustomException(404, "No person with that zipcode was found");
+        }
+
+        return Response.ok().entity(jCon.getJsonFromPersonsAllDetails(persons)).build();
+    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
