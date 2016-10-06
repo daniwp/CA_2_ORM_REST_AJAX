@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4fcd4aa7-5ffc-4047-b780-981692fd2012" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/css/styles.css" afterPath="$PROJECT_DIR$/src/main/webapp/css/styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/header.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/header.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" />
     </list>
     <ignored path="CA_2_ORM_REST_AJAX.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,21 +39,21 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="index.jsp" pinned="false" current-in-tab="false">
+          <file leaf-file-name="index.jsp" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="374">
-                  <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+                <state relative-caret-position="592">
+                  <caret line="38" column="43" selection-start-line="38" selection-start-column="43" selection-end-line="38" selection-end-column="43" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="header.jsp" pinned="false" current-in-tab="true">
+          <file leaf-file-name="header.jsp" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/webapp/header.jsp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="425">
-                  <caret line="25" column="54" selection-start-line="25" selection-start-column="54" selection-end-line="25" selection-end-column="54" />
+                <state relative-caret-position="357">
+                  <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
                   <folding />
                 </state>
               </provider>
@@ -104,9 +103,9 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/webapp/index.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/test.html" />
-        <option value="$PROJECT_DIR$/src/main/webapp/index.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/header.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/css/styles.css" />
+        <option value="$PROJECT_DIR$/src/main/webapp/index.jsp" />
       </list>
     </option>
   </component>
@@ -336,12 +335,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1475772454837</updated>
-      <workItem from="1475772456446" duration="6355000" />
+      <workItem from="1475772456446" duration="6850000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6355000" />
+    <option name="totallyTimeSpent" value="6850000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
@@ -390,14 +389,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/footer.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -406,18 +397,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/css/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="35" column="30" selection-start-line="35" selection-start-column="30" selection-end-line="35" selection-end-column="30" />
+          <folding>
+            <marker date="1475785714222" expanded="true" signature="378:475" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/header.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="54" selection-start-line="25" selection-start-column="54" selection-end-line="25" selection-end-column="54" />
+        <state relative-caret-position="357">
+          <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/css/styles.css">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="1" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
+        <state relative-caret-position="592">
+          <caret line="38" column="43" selection-start-line="38" selection-start-column="43" selection-end-line="38" selection-end-column="43" />
           <folding />
         </state>
       </provider>
