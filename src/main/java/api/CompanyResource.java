@@ -78,7 +78,7 @@ public class CompanyResource {
 
         return Response.ok().entity(jCon.getJsonFromCompanyAllDetails(c)).build();
     }
-
+    
     @GET
     @Path("/contactinfo")
     @Produces(MediaType.APPLICATION_JSON)

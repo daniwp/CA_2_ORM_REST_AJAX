@@ -305,6 +305,7 @@ public class PersonFacade implements IPersonFacade {
     public Person getPersonOnPhone(String number) {
         EntityManager em = getEntityManager();
         Person person = null;
+
         long phoneID = -1;
         long personID = -1;
 
@@ -321,5 +322,37 @@ public class PersonFacade implements IPersonFacade {
         }
 
         return person;
+    }
+
+    @Override
+    public List<Person> getPersonsWithHobby(String name) {
+        EntityManager em = getEntityManager();
+        Hobby h = null;
+
+        List<Long> personIDs = new ArrayList();
+        List<Person> persons = new ArrayList();
+
+        try {
+            h = em.createQuery("SELECT h FROM Hobby h WHERE h.name = :name", Hobby.class).setParameter("name", name).getSingleResult();
+
+            if (h == null) {
+                return persons;
+            }
+
+            personIDs = em.createNativeQuery("SELECT person_hobby.`persons_ID` FROM person_hobby WHERE `hobbies_ID` = ?id").setParameter("id", h.getId()).getResultList();
+
+            if (personIDs.isEmpty()) {
+                return persons;
+            }
+
+            for (Long id : personIDs) {
+                persons.add(em.find(Person.class, id));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return persons;
     }
 }

@@ -24,6 +24,8 @@ public interface IPersonFacade {
     List<Person> getPersonsFromZipcode(int zipCode);
 
     Person getPersonOnPhone(String number);
+    
+    List<Person> getPersonsWithHobby(String name);
 
     Person addPerson(Person person);
 

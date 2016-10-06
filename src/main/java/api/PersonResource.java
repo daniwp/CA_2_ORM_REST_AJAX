@@ -107,6 +107,19 @@ public class PersonResource {
         return Response.ok().entity(jCon.getJsonFromPersonAllDetailsIncHobbies(p)).build();
     }
 
+    @GET
+    @Path("/complete/hobby/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getWithHobby(@PathParam("name") String name) throws CustomException {
+        List<Person> persons = pFacade.getPersonsWithHobby(name);
+
+        if (persons.isEmpty()) {
+            throw new CustomException(404, "No person with that hobby was found");
+        }
+
+        return Response.ok().entity(jCon.getJsonFromPersonsAllDetails(persons)).build();
+    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
