@@ -17,14 +17,23 @@ td, tr, table {
     padding-bottom: 60px;
 }
 
-.navbar-default {
+.nav li a {
+    color: white !important;
+}
+
+.navbar-header a {
+    color: white !important;
+}
+
+.navbar-inverse {
     margin-bottom: 0;
     padding-bottom: 0;
-    background-color: #d7d7d7;
+    background-color: #337AB7;
+    border: none;
 }
 
 .footer {
-    background-color: #d7d7d7;
+    background-color: #337AB7;
     height: 100px;
 }
 
