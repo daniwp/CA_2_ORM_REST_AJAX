@@ -78,9 +78,9 @@
             <form class="form-inline">
                 <div class="form-group">
                     <label for="fname">ID</label>
-                    <input type="text" class="form-control" id="">
+                    <input type="text" class="form-control" id="ID">
                 </div>
-                <button id="add" type="submit" class="btn btn-default">X</button>
+                <button id="delete" type="submit" class="btn btn-default">X</button>
         </div>
     </div>
 </div>

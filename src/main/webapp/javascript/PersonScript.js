@@ -114,9 +114,19 @@ $(document).ready(function () {
                 alert(res);    
             }
         });
-
+        
 
     });
-
+            $("#delete").click(function(data) {
+        var ID = $("#ID").val();
+        $.ajax({
+            url: "http://localhost:8084/CA2REST/api/person/{id}",
+            type: "DELETE",
+            success: function(data) {
+                    alert("You have now deleted a person");
+            }, error: function(res) {
+                console.log(res);
+            }
+            });
 });
 
