@@ -22,7 +22,7 @@
                 </table>
                 <div class="row">
                     <div class="col-md-2">
-                        <a href="http://localhost:8084/CA2REST/" class="btn btn-primary btn-block horizontal-align">
+                        <a href="http://localhost:8084/CA2REST/companies.jsp" class="btn btn-primary btn-block horizontal-align">
                             <i class="fa fa-refresh" aria-hidden="true"></i> Update</span>
                         </a>
                     </div>

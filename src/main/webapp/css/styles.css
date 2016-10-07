@@ -13,7 +13,6 @@ td, tr, table {
 }
 
 .section-companies {
-    background-color: #e7e7e7;
     padding-bottom: 60px;
 }
 
@@ -34,9 +33,45 @@ td, tr, table {
 
 .footer {
     background-color: #337AB7;
-    height: 100px;
+    min-height: 100px;
 }
 
 .section-index {
-    margin-bottom: 350px;
+    max-height: 1100px;
+    margin-bottom: 60px;
+}
+
+.section-persons {
+    max-height: 1100px;
+}
+
+tbody tr:hover {
+    background-color: #d6ecff !important;
+}
+
+thead {
+    background-color: #337AB7;
+}
+
+thead th {
+    color: white;
+}
+
+tbody {
+    border: 1px solid #337AB7;
+}
+
+.list-group-item-action:hover {
+    background-color: #d6ecff !important;
+}
+
+footer p {
+    color: white;
+    margin-bottom: 10px;
+}
+
+footer h4 {
+    color: white;
+    font-weight: 600;
+    margin-bottom: 15px;
 }
