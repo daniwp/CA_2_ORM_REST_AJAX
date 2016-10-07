@@ -47,7 +47,8 @@ $(document).ready(function () {
         dataType: "json",
         success: function (data) {
             //console.log(data);
-
+            $("#pbtn").click(function(){
+                
             data.forEach(function (person) {
                 var output = "";
                 output += typeof person.id !== "undefined" ? '<ul>' + person.id + '</ul>' : '<ul>-</ul>';
@@ -59,18 +60,15 @@ $(document).ready(function () {
                     output += typeof phone[p].description !== "undefined" ? '<ul>' + phone[p].description + '</ul>' : '<ul>-</ul>';
                     output += typeof phone[p].number !== "undefined" ? '<ul>' + phone[p].number + '</ul>' : '<ul>-</ul>';
                 });
-                $('#list').append('<ul>' + output + '</ul>');
+                $('#plist').append('<ul>' + output + '</ul>');
+            });
             });
         }, error: function (res) {
             console.log("error in person table" + res);
         }
 
     });
-    $("#list").css("display", "none");
-    $("#phonelist").click(function () {
-        $("#list").css("display", "block");
-    });
-    $.ajax({
+     $.ajax({
         url: 'http://localhost:8084/CA2REST/api/company/complete',
         type: "GET",
         dataType: "json",
@@ -84,11 +82,12 @@ $(document).ready(function () {
                 coutput += typeof company.numEmployees !== "undefined" ? '<td>' + company.numEmployees + '</td>' : '<td>-</td>';
                 coutput += typeof company.marketValue !== "undefined" ? '<td>' + company.marketValue + '</td>' : '<td>-</td>';
                 $('#companybody').append('<tr>' + coutput + '</tr>');
-                console.log(coutput);
+                //console.log(coutput);
             });
         }, error: function (res) {
             console.log(res);
         }
     });
+       
 });
 
