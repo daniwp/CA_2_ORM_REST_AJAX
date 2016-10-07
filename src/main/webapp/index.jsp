@@ -7,7 +7,7 @@
             <div class="col-md-6">
 
                 <div class="page-header">
-                    <h1>Get information about companies</h1>
+                    <h1>Get information about companies</h1>F
                 </div>
                 <div class="company">
                     <div class="list-group">

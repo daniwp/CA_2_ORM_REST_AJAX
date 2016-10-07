@@ -1,26 +1,31 @@
 $(document).ready(function () {
-    $.ajax({
-        url: 'http://localhost:8084/CA2REST/api/person/complete',
-        type: 'GET',
-        dataType: "json",
-        success: function (data) {
-            //console.log(data);
-            data.forEach(function (person) {
 
-                var output = "";
-                output += typeof person.firstname !== "undefined" ? '<td>' + person.firstname + '</td>' : '<td>-</td>';
-                output += typeof person.lastname !== "undefined" ? '<td>' + person.lastname + '</td>' : '<td>-</td>';
-                output += typeof person.email !== "undefined" ? '<td>' + person.email + '</td>' : '<td>-</td>';
-                output += typeof person.zipcode !== "undefined" ? '<td>' + person.zipcode + '</td>' : '<td>-</td>';
-                output += typeof person.street !== "undefined" ? '<td>' + person.street + '</td>' : '<td>-</td>';
-                output += typeof person.city !== "undefined" ? '<td>' + person.city + '</td>' : '<td>-</td>';
+    function getPersonsComplete() {
 
-                $('#person').append('<tr>' + output + '</tr>');
-            });
-        }, error: function (res) {
-            alert("failure");
-        }
-    });
+        $.ajax({
+            url: 'http://localhost:8084/CA2REST/api/person/complete',
+            type: 'GET',
+            dataType: "json",
+            success: function (data) {
+                data.forEach(function (person) {
+
+                    var output = "";
+                    output += typeof person.firstname !== "undefined" ? '<td>' + person.firstname + '</td>' : '<td>-</td>';
+                    output += typeof person.lastname !== "undefined" ? '<td>' + person.lastname + '</td>' : '<td>-</td>';
+                    output += typeof person.email !== "undefined" ? '<td>' + person.email + '</td>' : '<td>-</td>';
+                    output += typeof person.zipcode !== "undefined" ? '<td>' + person.zipcode + '</td>' : '<td>-</td>';
+                    output += typeof person.street !== "undefined" ? '<td>' + person.street + '</td>' : '<td>-</td>';
+                    output += typeof person.city !== "undefined" ? '<td>' + person.city + '</td>' : '<td>-</td>';
+
+                    $('#person').append('<tr>' + output + '</tr>');
+                });
+            }, error: function (res) {
+            }
+        });
+
+    }
+
+    getPersonsComplete();
 
     $.ajax({
         url: 'http://localhost:8084/CA2REST/api/person/contactinfo',
@@ -88,7 +93,7 @@ $(document).ready(function () {
             console.log(res);
         }
     });
-    $("#add").click(function(data) {
+    $("#add").click(function (data) {
         var fname = $("#firstname").val();
         var lname = $("#lastname").val();
         var email = $("#email").val();
@@ -102,32 +107,27 @@ $(document).ready(function () {
                 email: email
             }),
             success: function (person) {
-                $("#contact").append(
-                        '<td>' + person.firstname + '</td>'
-                        + '<td>' + person.lastname + '</td>'
-                        + '<td>' + person.email + '</td>'
-                        );
-                console.log(("Added to the db"));
-                alert(person);
+                getPersonsComplete();
             }, error: function (res) {
                 console.log(res);
-                alert(res);    
             }
         });
-        
+
 
     });
-            $("#delete").click(function(data) {
+
+    $("#delete").click(function (data) {
         var ID = $("#ID").val();
         $.ajax({
-            url: "http://localhost:8084/CA2REST/api/person/{id}",
+            url: "http://localhost:8084/CA2REST/api/person/" + ID,
             type: "DELETE",
-            success: function(data) {
-                    alert("You have now deleted a person");
-            }, error: function(res) {
+            success: function (data) {
+                getPersonsComplete();
+            }, error: function (res) {
                 console.log(res);
             }
-            });
-});
+        });
+    });
+
 });
 
