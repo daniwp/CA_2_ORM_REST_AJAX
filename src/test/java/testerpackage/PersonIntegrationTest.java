@@ -15,7 +15,7 @@ public class PersonIntegrationTest {
 
     public PersonIntegrationTest() {
     }
-
+    //1st test
     @Test
     public void VerifyAllPersons() {
         given()
@@ -30,7 +30,7 @@ public class PersonIntegrationTest {
                 .body("[0]", hasKey("email"));
 
     }
-
+    //2nd test
     @Test
     public void VerifyPersonById() {
         given()
@@ -43,7 +43,7 @@ public class PersonIntegrationTest {
                 .body("firstname", equalTo("David"))
                 .body("email", equalTo("dwp@dwp.com")); //email of person with id=1;
     }
-
+    //3rd test
     @Test
     public void VerifyContacts() {
         given()
@@ -56,7 +56,7 @@ public class PersonIntegrationTest {
                 .body("[0]", hasKey("name"))
                 .body("[0]", hasKey("email"));
     }
-
+    //4th test
     @Test
     public void VerifyContactById() {
         int id = 1;
@@ -69,7 +69,7 @@ public class PersonIntegrationTest {
                 .statusCode(200)
                 .body("id", equalTo(id));
     }
-
+   //5th test
     @Test
     public void VerifyContactByIdException() {
         int id = 999;
@@ -83,4 +83,18 @@ public class PersonIntegrationTest {
                 .body("message", equalTo("No person with that id was found"));
     }
 
+    
+        //6th test
+ @Test
+    public void VerifyPersonByIdException() {
+        int id = 999;
+        given()
+                .contentType(ContentType.JSON)
+                .pathParam("id", id)
+                .when()
+                .get(baseUrl + "/complete/{id}")
+                .then()
+                .statusCode(404)
+                .body("message", equalTo("No person with that id was found"));
+    }
 }
