@@ -11,7 +11,7 @@
                 </div>
                 <div class="company">
                     <div class="list-group">
-                        <a href="companies.jsp" class="list-group-item active">Company Features</a>
+                        <a href="companiges.jsp" class="list-group-item active">Company Features</a>
                         <a href="companies.jsp" class="list-group-item list-group-item-action">Get information about all companies</a>
                         <a href="companies.jsp" class="list-group-item list-group-item-action">Get information about a company with a given cvr</a>
                         <a href="companies.jsp" class="list-group-item list-group-item-action">Get information about a company with a given phone number</a>

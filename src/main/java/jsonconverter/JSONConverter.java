@@ -300,6 +300,7 @@ public class JSONConverter implements IJSONConverter {
         JsonObject json = new JsonObject();
         JsonArray phones = new JsonArray();
 
+        json.addProperty("id", company.getId());
         json.addProperty("name", company.getName());
         json.addProperty("description", company.getDescription());
         json.addProperty("email", company.getEmail());
@@ -371,6 +372,7 @@ public class JSONConverter implements IJSONConverter {
             JsonObject json = new JsonObject();
             JsonArray phones = new JsonArray();
 
+            json.addProperty("id", c.getId());
             json.addProperty("name", c.getName());
             json.addProperty("description", c.getDescription());
             json.addProperty("email", c.getEmail());

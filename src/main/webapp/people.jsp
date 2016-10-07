@@ -7,24 +7,26 @@
                 <div class="page-header">
                     <h2>Personregister</h2>
                 </div>
-                <p style="color: black; font-family: times new roman; font-size: 18px;">Infomation om personer i PET's kriminalregister</p>
+                <p style="color: black; font-family: times new roman; font-size: 18px;">Infomation om personer i PET's
+                    kriminalregister</p>
 
                 <table id="data" class="table table-hover">
                     <thead>
-                        <tr>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>Email</th>
-                            <th>Zipcode</th>
-                            <th>Street</th>
-                            <th>City</th>
-                        </tr>
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Email</th>
+                        <th>Zipcode</th>
+                        <th>Street</th>
+                        <th>City</th>
+                    </tr>
                     </thead>
                     <tbody id="person"></tbody>
                 </table>
                 <div class="row">
                     <div class="col-md-2">
-                        <a href="http://localhost:8084/CA2REST/people.jsp" class="btn btn-primary btn-block horizontal-align">
+                        <a href="http://localhost:8084/CA2REST/people.jsp"
+                           class="btn btn-primary btn-block horizontal-align">
                             <i class="fa fa-refresh" aria-hidden="true"></i> Update</span>
                         </a>
                     </div>
@@ -38,11 +40,11 @@
 
                 <table id="tcontact" class="table table-hover">
                     <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                        </tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
                     </thead>
                     <tbody id="contact"></tbody>
                 </table>
@@ -63,13 +65,13 @@
                 <div class="row">
                     <form class="form-inline">
                         <div class="form-group col-md-4">
-                            <label for="fname">Firstname:</label>
+                            <label for="firstname">Firstname:</label>
                             <input type="text" class="form-control" id="firstname">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="lname">Lastname:</label>
                             <input type="text" class="form-control" id="lastname">
-                        </div>                
+                        </div>
                         <div class="form-group col-md-4">
                             <label for="email">Email:</label>
                             <input type="text" class="form-control" id="email" required>
@@ -91,8 +93,9 @@
                     <div class="form-group">
                         <br>
                         <label for="fname">ID</label>
+
                         <input type="text" class="form-control" id="ID">
-                        <button id="delete" type="submit" class="btn btn-danger">X</button>
+                        <button id="delete" type="submit" class="btn btn-danger">X - Delete</button>
                     </div>
                 </form>
             </div>

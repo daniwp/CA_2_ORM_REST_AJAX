@@ -254,8 +254,8 @@ public class CompanyFacade implements ICompanyFacade {
         long companyID = -1;
 
         try {
-            phoneID = em.createQuery("SELECT p.id FROM Phone p WHERE p.number = :number", Long.class).setParameter("number", number).getSingleResult();
-            companyID = (long) em.createNativeQuery("SELECT company_phone.`Company_ID` FROM company_phone WHERE `phones_ID` = ?id").setParameter("id", phoneID).getSingleResult();
+            phoneID = em.createQuery("SELECT p.id FROM Phone p WHERE p.number = :number", Long.class).setParameter("number", number).getResultList().get(0);
+            companyID = (long) em.createNativeQuery("SELECT company_phone.`Company_ID` FROM company_phone WHERE `phones_ID` = ?id").setParameter("id", phoneID).getResultList().get(0);
 
             c = em.find(Company.class, companyID);
 

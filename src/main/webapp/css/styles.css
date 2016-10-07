@@ -40,9 +40,6 @@ td, tr, table {
     margin-bottom: 60px;
 }
 
-.section-persons {
-}
-
 tbody tr:hover {
     background-color: #d6ecff !important;
 }
@@ -72,4 +69,9 @@ footer h4 {
     color: white;
     font-weight: 600;
     margin-bottom: 15px;
+}
+
+#search-table-company {
+    margin-top: 30px;
+    display: none;
 }

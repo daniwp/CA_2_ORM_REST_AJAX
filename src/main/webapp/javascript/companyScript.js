@@ -13,6 +13,7 @@ $(document).ready(function () {
             success: function (m) {
                 m.forEach(function (company) {
                     var coutput = "";
+                    coutput += typeof company.id !== "undefined" ? '<td>' + company.id + '</td>' : '<td>-</td>';
                     coutput += typeof company.name !== "undefined" ? '<td>' + company.name + '</td>' : '<td>-</td>';
                     coutput += typeof company.email !== "undefined" ? '<td>' + company.email + '</td>' : '<td>-</td>';
                     coutput += typeof company.description !== "undefined" ? '<td>' + company.description + '</td>' : '<td>-</td>';
@@ -59,26 +60,117 @@ $(document).ready(function () {
                 console.log(res);
             }
         });
-
-
     });
 
-    $("#delete").click(function (data) {
-        var ID = $("#ID").val();
+    $("#delete-company").click(function (data) {
+        var ID = $("#company-id-delete").val();
         $.ajax({
-            url: "http://localhost:8084/CA2REST/api/person/" + ID,
+            url: "http://localhost:8084/CA2REST/api/company/" + ID,
             type: "DELETE",
             success: function (data) {
-                getPersonsComplete();
-                getPersonsContact();
+                getCompanies();
             }, error: function (res) {
                 console.log(res);
             }
         });
     });
 
-    function formatNumber(number)
-    {
+    $('#hide-resuslts').on('click', function () {
+        $('#search-table-company').css('display', 'none');
+    });
+
+    $('#searchCVR').on('click', function () {
+        var cvr = $('#cvrsearch').val();
+        getCompanyCVR(cvr);
+    });
+
+    $('#searchPhone').on('click', function () {
+        var number = $('#phonesearch').val();
+        getCompanyPhone(number);
+    });
+
+    $('#searchEmployee').on('click', function () {
+        var count = $('#employeesearch').val();
+        getCompaniesEmployee(count);
+    });
+
+    function getCompanyCVR(cvr) {
+        $('#search-table-data-company').html("");
+
+        $.ajax({
+            url: 'http://localhost:8084/CA2REST/api/company/complete/cvr/' + cvr,
+            type: "GET",
+            dataType: "json",
+            success: function (company) {
+                console.log(company);
+                var coutput = "";
+                coutput += typeof company.id !== "undefined" ? '<td>' + company.id + '</td>' : '<td>-</td>';
+                coutput += typeof company.name !== "undefined" ? '<td>' + company.name + '</td>' : '<td>-</td>';
+                coutput += typeof company.email !== "undefined" ? '<td>' + company.email + '</td>' : '<td>-</td>';
+                coutput += typeof company.description !== "undefined" ? '<td>' + company.description + '</td>' : '<td>-</td>';
+                coutput += typeof company.cvr !== "undefined" ? '<td>' + company.cvr + '</td>' : '<td>-</td>';
+                coutput += typeof company.numEmployees !== "undefined" ? '<td>' + formatNumber2(company.numEmployees) + '</td>' : '<td>-</td>';
+                coutput += typeof company.marketValue !== "undefined" ? '<td>' + formatNumber(company.marketValue) + '$' + '</td>' : '<td>-</td>';
+                $('#search-table-data-company').html('<tr>' + coutput + '</tr>');
+                $('#search-table-company').css('display', 'block');
+            }, error: function (res) {
+                console.log(res);
+            }
+        });
+    }
+
+    function getCompanyPhone(phone_number) {
+        $('#search-table-data-company').html("");
+
+        $.ajax({
+            url: 'http://localhost:8084/CA2REST/api/company/complete/phone/' + phone_number,
+            type: "GET",
+            dataType: "json",
+            success: function (company) {
+                console.log(company);
+                var coutput = "";
+                coutput += typeof company.id !== "undefined" ? '<td>' + company.id + '</td>' : '<td>-</td>';
+                coutput += typeof company.name !== "undefined" ? '<td>' + company.name + '</td>' : '<td>-</td>';
+                coutput += typeof company.email !== "undefined" ? '<td>' + company.email + '</td>' : '<td>-</td>';
+                coutput += typeof company.description !== "undefined" ? '<td>' + company.description + '</td>' : '<td>-</td>';
+                coutput += typeof company.cvr !== "undefined" ? '<td>' + company.cvr + '</td>' : '<td>-</td>';
+                coutput += typeof company.numEmployees !== "undefined" ? '<td>' + formatNumber2(company.numEmployees) + '</td>' : '<td>-</td>';
+                coutput += typeof company.marketValue !== "undefined" ? '<td>' + formatNumber(company.marketValue) + '$' + '</td>' : '<td>-</td>';
+                $('#search-table-data-company').html('<tr>' + coutput + '</tr>');
+                $('#search-table-company').css('display', 'block');
+            }, error: function (res) {
+                console.log(res);
+            }
+        });
+    }
+
+    function getCompaniesEmployee(employee_count) {
+        $('#search-table-data-company').html("");
+
+        $.ajax({
+            url: 'http://localhost:8084/CA2REST/api/company/complete/employees/' + employee_count,
+            type: "GET",
+            dataType: "json",
+            success: function (m) {
+                m.forEach(function (company) {
+                    var coutput = "";
+                    coutput += typeof company.id !== "undefined" ? '<td>' + company.id + '</td>' : '<td>-</td>';
+                    coutput += typeof company.name !== "undefined" ? '<td>' + company.name + '</td>' : '<td>-</td>';
+                    coutput += typeof company.email !== "undefined" ? '<td>' + company.email + '</td>' : '<td>-</td>';
+                    coutput += typeof company.description !== "undefined" ? '<td>' + company.description + '</td>' : '<td>-</td>';
+                    coutput += typeof company.cvr !== "undefined" ? '<td>' + company.cvr + '</td>' : '<td>-</td>';
+                    coutput += typeof company.numEmployees !== "undefined" ? '<td>' + formatNumber2(company.numEmployees) + '</td>' : '<td>-</td>';
+                    coutput += typeof company.marketValue !== "undefined" ? '<td>' + formatNumber(company.marketValue) + '$' + '</td>' : '<td>-</td>';
+                    $('#search-table-data-company').append('<tr>' + coutput + '</tr>');
+                });
+                $('#search-table-company').css('display', 'block');
+            }, error: function (res) {
+                console.log(res);
+            }
+        });
+    }
+
+    function formatNumber(number) {
         number = number.toFixed(2) + '';
         x = number.split('.');
         x1 = x[0];
@@ -90,8 +182,7 @@ $(document).ready(function () {
         return x1 + x2;
     }
 
-    function formatNumber2(number)
-    {
+    function formatNumber2(number) {
         number = number.toFixed(2) + '';
         x = number.split('.');
         x1 = x[0];
