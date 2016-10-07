@@ -72,6 +72,15 @@
                 <button id="add" type="submit" class="btn btn-default">Submit</button>
             </form>
             </div>
+            <div class="page-header">
+                <h2>Delete a person by ID:</h2>
+                
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="fname">ID</label>
+                    <input type="text" class="form-control" id="">
+                </div>
+                <button id="add" type="submit" class="btn btn-default">X</button>
         </div>
     </div>
 </div>
