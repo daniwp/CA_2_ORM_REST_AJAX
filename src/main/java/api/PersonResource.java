@@ -1,7 +1,6 @@
 package api;
 
 import entities.CityInfo;
-import static entities.Hobby_.persons;
 import entities.Person;
 import exceptions.CustomException;
 import facade.PersonFacade;

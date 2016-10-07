@@ -1,6 +1,11 @@
 $(document).ready(function () {
 
+    getPersonsComplete();
+    getPersonsContact();
+
     function getPersonsComplete() {
+
+        $('#person').html("");
 
         $.ajax({
             url: 'http://localhost:8084/CA2REST/api/person/complete',
@@ -22,30 +27,32 @@ $(document).ready(function () {
             }, error: function (res) {
             }
         });
-
     }
 
-    getPersonsComplete();
+    function getPersonsContact() {
 
-    $.ajax({
-        url: 'http://localhost:8084/CA2REST/api/person/contactinfo',
-        type: 'GET',
-        dataType: "json",
-        success: function (data) {
-            //console.log(data);
+        $('#contact').html("");
 
-            data.forEach(function (person) {
-                var output = "";
-                output += typeof person.id !== "undefined" ? '<td>' + person.id + '</td>' : '<td>-</td>';
-                output += typeof person.name !== "undefined" ? '<td>' + person.name + '</td>' : '<td>-</td>';
-                output += typeof person.email !== "undefined" ? '<td>' + person.email + '</td>' : '<td>-</td>';
-                $('#contact').append('<tr>' + output + '</tr>');
-            });
-        }, error: function (res) {
-            console.log("error in person table" + res);
-        }
+        $.ajax({
+            url: 'http://localhost:8084/CA2REST/api/person/contactinfo',
+            type: 'GET',
+            dataType: "json",
+            success: function (data) {
+                //console.log(data);
 
-    });
+                data.forEach(function (person) {
+                    var output = "";
+                    output += typeof person.id !== "undefined" ? '<td>' + person.id + '</td>' : '<td>-</td>';
+                    output += typeof person.name !== "undefined" ? '<td>' + person.name + '</td>' : '<td>-</td>';
+                    output += typeof person.email !== "undefined" ? '<td>' + person.email + '</td>' : '<td>-</td>';
+                    $('#contact').append('<tr>' + output + '</tr>');
+                });
+            }, error: function (res) {
+                console.log("error in person table" + res);
+            }
+        });
+    }
+
     $.ajax({
         url: 'http://localhost:8084/CA2REST/api/person/contactinfo',
         type: 'GET',
@@ -71,8 +78,8 @@ $(document).ready(function () {
         }, error: function (res) {
             console.log("error in person table" + res);
         }
-
     });
+
     $.ajax({
         url: 'http://localhost:8084/CA2REST/api/company/complete',
         type: "GET",
@@ -93,6 +100,7 @@ $(document).ready(function () {
             console.log(res);
         }
     });
+
     $("#add").click(function (data) {
         var fname = $("#firstname").val();
         var lname = $("#lastname").val();
@@ -108,6 +116,7 @@ $(document).ready(function () {
             }),
             success: function (person) {
                 getPersonsComplete();
+                getPersonsContact();
             }, error: function (res) {
                 console.log(res);
             }
@@ -123,6 +132,7 @@ $(document).ready(function () {
             type: "DELETE",
             success: function (data) {
                 getPersonsComplete();
+                getPersonsContact();
             }, error: function (res) {
                 console.log(res);
             }

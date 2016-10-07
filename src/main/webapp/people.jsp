@@ -49,38 +49,53 @@
                 <button id="pbtn" type="button" class="btn btn-primary btn-block">
                     <span id="phonelist" class="glyphicon glyphicon-list"> Phonelist</span>
                 </button>
-                <li id="plist">
+                <ul id="plist">
 
-                </li>
+                </ul>
             </div>
-            <div class="page-header">
-                <h2>Add a person:</h2>
-                
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="fname">Firstname:</label>
-                    <input type="text" class="form-control" id="firstname">
+        </div>
+        <div class="row">
+
+            <div class="col-md-8">
+                <div class="page-header">
+                    <h2>Add a person:</h2>
                 </div>
-                <div class="form-group">
-                    <label for="lname">Lastname:</label>
-                    <input type="text" class="form-control" id="lastname">
-                </div>                
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email">
+                <div class="row">
+                    <form class="form-inline">
+                        <div class="form-group col-md-4">
+                            <label for="fname">Firstname:</label>
+                            <input type="text" class="form-control" id="firstname">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="lname">Lastname:</label>
+                            <input type="text" class="form-control" id="lastname">
+                        </div>                
+                        <div class="form-group col-md-4">
+                            <label for="email">Email:</label>
+                            <input type="text" class="form-control" id="email" required>
+                        </div>
+                    </form>
                 </div>
-                <button id="add" type="submit" class="btn btn-default">Submit</button>
-            </form>
+                <div class="row">
+                    <div class="col-md-2">
+                        <button style="margin-top: 20px;" id="add" type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
             </div>
-            <div class="page-header">
-                <h2>Delete a person by ID:</h2>
-                
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="fname">ID</label>
-                    <input type="text" class="form-control" id="ID">
+            <div class="col-md-4">
+                <div class="page-header">
+                    <h2>Delete a person by ID:</h2>
                 </div>
-                <button id="delete" type="submit" class="btn btn-default">X</button>
+
+                <form class="form-inline">
+                    <div class="form-group">
+                        <br>
+                        <label for="fname">ID</label>
+                        <input type="text" class="form-control" id="ID">
+                        <button id="delete" type="submit" class="btn btn-danger">X</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
