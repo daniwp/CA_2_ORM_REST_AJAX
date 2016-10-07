@@ -34,9 +34,9 @@
                 <div class="page-header">
                     <h2>Kontakt informationer</h2>
                 </div>
-                <p style="color: black; font-family: times new roman; font-size: 18px;">Kantakt info</p>
+                <p style="color: black; font-family: times new roman; font-size: 18px;">Kontakt info</p>
 
-                <table id="contact" class="table table-hover">
+                <table id="tcontact" class="table table-hover">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -50,8 +50,27 @@
                     <span id="phonelist" class="glyphicon glyphicon-list"> Phonelist</span>
                 </button>
                 <li id="plist">
-                    
+
                 </li>
+            </div>
+            <div class="page-header">
+                <h2>Add a person:</h2>
+                
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="fname">Firstname:</label>
+                    <input type="text" class="form-control" id="firstname">
+                </div>
+                <div class="form-group">
+                    <label for="lname">Lastname:</label>
+                    <input type="text" class="form-control" id="lastname">
+                </div>                
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email">
+                </div>
+                <button id="add" type="submit" class="btn btn-default">Submit</button>
+            </form>
             </div>
         </div>
     </div>

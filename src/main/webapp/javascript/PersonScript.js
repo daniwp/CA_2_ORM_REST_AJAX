@@ -47,28 +47,28 @@ $(document).ready(function () {
         dataType: "json",
         success: function (data) {
             //console.log(data);
-            $("#pbtn").click(function(){
-                
-            data.forEach(function (person) {
-                var output = "";
-                output += typeof person.id !== "undefined" ? '<ul>' + person.id + '</ul>' : '<ul>-</ul>';
-                output += typeof person.name !== "undefined" ? '<ul>' + person.name + '</ul>' : '<ul>-</ul>';
-                var phone = [];
-                phone = person.phones;
-                $.each(phone, function (p) {
-                    console.log(phone);
-                    output += typeof phone[p].description !== "undefined" ? '<ul>' + phone[p].description + '</ul>' : '<ul>-</ul>';
-                    output += typeof phone[p].number !== "undefined" ? '<ul>' + phone[p].number + '</ul>' : '<ul>-</ul>';
+            $("#pbtn").click(function () {
+
+                data.forEach(function (person) {
+                    var output = "";
+                    output += typeof person.id !== "undefined" ? '<ul>' + person.id + '</ul>' : '<ul>-</ul>';
+                    output += typeof person.name !== "undefined" ? '<ul>' + person.name + '</ul>' : '<ul>-</ul>';
+                    var phone = [];
+                    phone = person.phones;
+                    $.each(phone, function (p) {
+                        console.log(phone);
+                        output += typeof phone[p].description !== "undefined" ? '<ul>' + phone[p].description + '</ul>' : '<ul>-</ul>';
+                        output += typeof phone[p].number !== "undefined" ? '<ul>' + phone[p].number + '</ul>' : '<ul>-</ul>';
+                    });
+                    $('#plist').append('<ul>' + output + '</ul>');
                 });
-                $('#plist').append('<ul>' + output + '</ul>');
-            });
             });
         }, error: function (res) {
             console.log("error in person table" + res);
         }
 
     });
-     $.ajax({
+    $.ajax({
         url: 'http://localhost:8084/CA2REST/api/company/complete',
         type: "GET",
         dataType: "json",
@@ -88,6 +88,35 @@ $(document).ready(function () {
             console.log(res);
         }
     });
-       
+    $("#add").click(function(data) {
+        var fname = $("#firstname").val();
+        var lname = $("#lastname").val();
+        var email = $("#email").val();
+        $.ajax({
+            url: "http://localhost:8084/CA2REST/api/person",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                firstname: fname,
+                lastname: lname,
+                email: email
+            }),
+            success: function (person) {
+                $("#contact").append(
+                        '<td>' + person.firstname + '</td>'
+                        + '<td>' + person.lastname + '</td>'
+                        + '<td>' + person.email + '</td>'
+                        );
+                console.log(("Added to the db"));
+                alert(person);
+            }, error: function (res) {
+                console.log(res);
+                alert(res);    
+            }
+        });
+
+
+    });
+
 });
 
