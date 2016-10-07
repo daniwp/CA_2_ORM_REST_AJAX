@@ -37,12 +37,10 @@ td, tr, table {
 }
 
 .section-index {
-    max-height: 1100px;
     margin-bottom: 60px;
 }
 
 .section-persons {
-    max-height: 1100px;
 }
 
 tbody tr:hover {

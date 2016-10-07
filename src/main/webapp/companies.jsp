@@ -28,7 +28,50 @@
                     </div>
                 </div>
             </div>
-            <ul id="list" class="list-group"></ul>
+            <div class="col-md-4">
+                <div class="page-header">
+                    <h2>Add a Company</h2>
+                </div>
+                <div class="form-group">
+                    <p>Name:</p>
+                    <input id="companyName" class="form-control" type="text"/>
+                </div>
+                <div class="form-group">
+                    <p>Description:</p>
+                    <input id="companyDescription" class="form-control" type="text"/>
+                </div>
+                <div class="form-group">
+                    <p>CVR:</p>
+                    <input id="companyCVR" class="form-control" type="text"/>
+                </div>
+                <div class="form-group">
+                    <p>Email:</p>
+                    <input id="companyEmail" class="form-control" type="text"/>
+                </div>
+                <div class="form-group">
+                    <p>Employees:</p>
+                    <input id="companyEmployees" class="form-control" type="number"/>
+                </div>
+                <div class="form-group">
+                    <p>Market Value:</p>
+                    <input id="companyMarketValue" class="form-control" type="number"/>
+                </div>
+                <div class="form-group">
+                    <p>Street:</p>
+                    <input id="companyStreet" class="form-control" type="text"/>
+                </div>
+                <div class="form-group">
+                    <p>Zipcode:</p>
+                    <input id="companyZipcode" class="form-control" type="number"/>
+                </div>
+                <div class="form-group">
+                    <p>City:</p>
+                    <input id="companyCity" class="form-control" type="text"/>
+                </div>
+                <div class="form-group">
+                    <button id="addCompany" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
