@@ -25,7 +25,12 @@ public class CompanyIntegrationTest {
                 .then()
                 .statusCode(200)
                 //Checking for dummy-data in several json objects
-                .body("name", hasItems("Mo's kebab", "DWP Web", "CES A/S"));
+                .body("[0]", hasKey("name"))
+                .body("[0]", hasKey("description"))
+                .body("[0]", hasKey("email"))
+                .body("[0]", hasKey("cvr"))
+                .body("[0]", hasKey("numEmployees"))
+                .body("[0]", hasKey("marketValue"));
     }
     
     @Test
