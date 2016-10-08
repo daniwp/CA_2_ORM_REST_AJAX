@@ -63,7 +63,7 @@ public class JsonConverterTest {
 
     }
 
-    //Testing both JsonFromCompany and CompanyFromJson
+    //Testing both JsonFromCompany and CompanyFromJson 
     @Test
     public void testgetCompanyFromJson() {
         String json = converter.getJsonFromCompanyAllDetails(c1);
