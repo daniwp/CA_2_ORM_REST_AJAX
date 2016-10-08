@@ -111,4 +111,6 @@ public class CompanyIntegrationTest {
                 .body("message", equalTo("No company with that id was found"));
 
     }
+    
+    //make a DeleteCompanyTest 
 }
