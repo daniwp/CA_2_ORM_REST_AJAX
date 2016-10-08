@@ -16,17 +16,17 @@
 //        
 //    }
 //    
-////    @Test
-////    public void VerifyAllCompanies() {
-////        given()
-////                .contentType(ContentType.JSON)
-////                .when()
-////                .get(baseUrl + "/complete")
-////                .then()
-////                .statusCode(200)
-////                //Checking for dummy-data in several json objects
-////                .body("firstname", hasItems("Daniel", "Mohammed", "David"));
-////    }
+//    @Test
+//    public void VerifyAllCompanies() {
+//        given()
+//                .contentType(ContentType.JSON)
+//                .when()
+//                .get(baseUrl + "/complete")
+//                .then()
+//                .statusCode(200)
+//                //Checking for dummy-data in several json objects
+//                .body("firstname", hasItems("Daniel", "Mohammed", "David"));
+//    }
 //    
 //    @Test
 //    public void VerifySingleCvr() {
@@ -85,6 +85,22 @@
 //                .statusCode(200)
 //                .body("id", hasItems(1,2,3));
 //    }
+//    
+//    @Test
+//    public void VerifyDeleteCompanyException() {
+//        given()
+//                .contentType(ContentType.JSON)
+//                .pathParam("id", "999")
+//                .when()
+//                .delete(baseUrl + "/{id}")
+//                .then()
+//                .statusCode(404)
+//                .body("message", equalTo("No company with that id was found"));
+//    }
+//    
+//    
+//    
+//    
 //    
 //}
 //
