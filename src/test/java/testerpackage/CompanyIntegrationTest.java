@@ -15,7 +15,7 @@
 //    public CompanyIntegrationTest() {
 //        
 //    }
-//    
+//    //1st test
 //    @Test
 //    public void VerifyAllCompanies() {
 //        given()
@@ -32,7 +32,7 @@
 //                .body("[0]", hasKey("numEmployees"))
 //                .body("[0]", hasKey("marketValue"));
 //    }
-//    
+//    //2nd test
 //    @Test
 //    public void VerifySingleCvr() {
 //        given()
@@ -44,7 +44,7 @@
 //                .statusCode(200)
 //                .body("name", equalTo("DWP Web"));
 //    }
-//    
+//    //3rd test
 //    @Test
 //    public void VerifySingleCvrException() {
 //        given()
@@ -56,7 +56,7 @@
 //                .statusCode(404)
 //                .body("message", equalTo("No company with that cvr was found"));
 //    }
-//    
+//    //4th test
 //    @Test
 //    public void UndefinedCompany() {
 //        given()
@@ -67,7 +67,7 @@
 //                .statusCode(404)
 //                .body("message", equalTo("The service you requested does not exist."));
 //    }
-//    
+//    //5th test
 //    @Test
 //    public void VerifyPhone() {
 //        given()
@@ -79,7 +79,7 @@
 //                .statusCode(200)
 //                .body("name", equalTo("DWP Web"));
 //    }
-//    
+//    //6th test
 //    @Test
 //    public void VerifyContactInfo() {
 //        given()
@@ -90,7 +90,7 @@
 //                .statusCode(200)
 //                .body("id", hasItems(1,2,3));
 //    }
-//    
+//    //7th test
 //    @Test
 //    public void VerifyDeleteCompanyException() {
 //        given()
