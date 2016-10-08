@@ -25,7 +25,9 @@ public class PersonIntegrationTest {
                 .then()
                 .statusCode(200)
                 //Checking for dummy-data in several json objects
-                .body("firstname", hasItems("Daniel", "Mohammed", "David"));
+                .body("[0]", hasKey("firstname"))
+                .body("[0]", hasKey("lastname"))
+                .body("[0]", hasKey("email"));
 
     }
 
@@ -50,7 +52,9 @@ public class PersonIntegrationTest {
                 .get(baseUrl + "/contactinfo")
                 .then()
                 .statusCode(200)
-                .body("id", hasItems(1, 2, 3));
+                .body("[0]", hasKey("id"))
+                .body("[0]", hasKey("name"))
+                .body("[0]", hasKey("email"));
     }
 
     @Test
