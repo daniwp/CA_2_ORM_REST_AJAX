@@ -10,11 +10,13 @@ import org.junit.Test;
  * @author John
  */
 public class CompanyIntegrationTest {
-    private String baseUrl = "http://localhost:8084/CA2REST/api/company";
-    
+
+    private final String baseUrl = "http://localhost:8084/CA2REST/api/company";
+
     public CompanyIntegrationTest() {
-        
+
     }
+
     //1st test
     @Test
     public void VerifyAllCompanies() {
@@ -32,33 +34,36 @@ public class CompanyIntegrationTest {
                 .body("[0]", hasKey("numEmployees"))
                 .body("[0]", hasKey("marketValue"));
     }
+
     //2nd test
     @Test
     public void VerifySingleCvr() {
         given()
                 .contentType(ContentType.JSON)
-                .pathParam("cvr","384729")
+                .pathParam("cvr", "384729")
                 .when()
                 .get(baseUrl + "/complete/cvr/{cvr}")
                 .then()
                 .statusCode(200)
                 .body("name", equalTo("DWP Web"));
     }
+
     //3rd test
     @Test
     public void VerifySingleCvrException() {
         given()
                 .contentType(ContentType.JSON)
-                .pathParam("cvr","999999999")
+                .pathParam("cvr", "999999999")
                 .when()
                 .get(baseUrl + "/complete/cvr/{cvr}")
                 .then()
                 .statusCode(404)
                 .body("message", equalTo("No company with that cvr was found"));
     }
+
     //4th test
     @Test
-    public void UndefinedCompany() {
+    public void UndefinedCompanyException() {
         given()
                 .contentType(ContentType.JSON)
                 .when()
@@ -67,6 +72,7 @@ public class CompanyIntegrationTest {
                 .statusCode(404)
                 .body("message", equalTo("The service you requested does not exist."));
     }
+
     //5th test
     @Test
     public void VerifyPhone() {
@@ -79,6 +85,7 @@ public class CompanyIntegrationTest {
                 .statusCode(200)
                 .body("name", equalTo("DWP Web"));
     }
+
     //6th test
     @Test
     public void VerifyContactInfo() {
@@ -88,8 +95,9 @@ public class CompanyIntegrationTest {
                 .get(baseUrl + "/contactinfo")
                 .then()
                 .statusCode(200)
-                .body("id", hasItems(1,2,3));
+                .body("id", hasItems(1, 2, 3));
     }
+
     //7th test
     @Test
     public void VerifyDeleteCompanyException() {
@@ -101,11 +109,8 @@ public class CompanyIntegrationTest {
                 .then()
                 .statusCode(404)
                 .body("message", equalTo("No company with that id was found"));
-    }
-    
-    
-    
-    
-    
-}
 
+    }
+
+    //make a DeleteCompanyTest 
+}
