@@ -1,6 +1,7 @@
 package api;
 
 import entities.CityInfo;
+import entities.Hobby;
 import entities.Person;
 import exceptions.CustomException;
 import facade.PersonFacade;
@@ -51,6 +52,19 @@ public class PersonResource {
         }
 
         return Response.ok().entity(jCon.getJsonFromPersonAllDetails(p)).build();
+    }
+
+    @GET
+    @Path("/complete/all/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllCompleteIncAll(@PathParam("id") long id) throws CustomException {
+        Person person = pFacade.getPerson(id);
+
+        if (person == null) {
+            throw new CustomException(404, "No person with that id was found");
+        }
+
+        return Response.ok().entity(jCon.getJsonFromPersonAllDetailsIncHobbies(person)).build();
     }
 
     @GET
@@ -185,6 +199,21 @@ public class PersonResource {
         }
 
         return Response.ok().entity(jCon.getJsonFromPersonAllDetails(p)).build();
+    }
+
+    @POST
+    @Path("/hobby/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response adHobby(@PathParam("id") long id, String content) throws CustomException {
+
+        Person p = pFacade.addHobbyToPerson(jCon.getHobbyFromJson(content), id);
+
+        if (p == null) {
+            throw new CustomException(400, "Something went wrong");
+        }
+
+        return Response.ok().entity(jCon.getJsonFromPersonAllDetailsIncHobbies(p)).build();
     }
 
     @PUT
