@@ -2,11 +2,35 @@ $(document).ready(function () {
 
     getPersonsComplete();
     getPersonsContact();
-
+    
+    
+    function getPerson() {
+        $('#person').html("");
+        $.ajax({
+            url: 'http://localhost:8084/CA2REST/api/person/',
+            type: 'GET',
+            dataType: "json",
+            success: function (person) {
+                return person;
+//                    var output = "";
+//                    output += typeof person.firstname !== "undefined" ? '<td>' + person.firstname + '</td>' : '<td>-</td>';
+//                    output += typeof person.lastname !== "undefined" ? '<td>' + person.lastname + '</td>' : '<td>-</td>';
+//                    output += typeof person.email !== "undefined" ? '<td>' + person.email + '</td>' : '<td>-</td>';
+//                    output += typeof person.zipcode !== "undefined" ? '<td>' + person.zipcode + '</td>' : '<td>-</td>';
+//                    output += typeof person.street !== "undefined" ? '<td>' + person.street + '</td>' : '<td>-</td>';
+//                    output += typeof person.city !== "undefined" ? '<td>' + person.city + '</td>' : '<td>-</td>';
+//                    $('#person').append('<tr>' + output + '</tr>');
+                },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+    }
+    
+  
     function getPersonsComplete() {
 
         $('#person').html("");
-
         $.ajax({
             url: 'http://localhost:8084/CA2REST/api/person/complete',
             type: 'GET',
@@ -21,10 +45,10 @@ $(document).ready(function () {
                     output += typeof person.zipcode !== "undefined" ? '<td>' + person.zipcode + '</td>' : '<td>-</td>';
                     output += typeof person.street !== "undefined" ? '<td>' + person.street + '</td>' : '<td>-</td>';
                     output += typeof person.city !== "undefined" ? '<td>' + person.city + '</td>' : '<td>-</td>';
-
                     $('#person').append('<tr>' + output + '</tr>');
                 });
             }, error: function (res) {
+                console.log(res);
             }
         });
     }
@@ -32,7 +56,6 @@ $(document).ready(function () {
     function getPersonsContact() {
 
         $('#contact').html("");
-
         $.ajax({
             url: 'http://localhost:8084/CA2REST/api/person/contactinfo',
             type: 'GET',
@@ -79,7 +102,6 @@ $(document).ready(function () {
             console.log("error in person table" + res);
         }
     });
-
     $("#add").click(function (data) {
         var fname = $("#firstname").val();
         var lname = $("#lastname").val();
@@ -100,10 +122,7 @@ $(document).ready(function () {
                 console.log(res);
             }
         });
-
-
     });
-
     $("#delete").click(function (data) {
         var ID = $("#ID").val();
         $.ajax({
@@ -117,6 +136,27 @@ $(document).ready(function () {
             }
         });
     });
-
+    $("#addhobby").click(function (data) {
+        var person = getPerson(id);
+        var id = $("#ID").val();
+        var hobby = $("#hobby").val();
+        var desc = $("#description").val();
+        $.ajax({
+            url: "http://localhost:8084/CA2REST/api/person/" + id,
+            type: "PUT",
+            contentType: "json",
+            data: JSON.stringify({
+                id: id,
+                hobby: hobby,
+                desc: desc
+                
+            }), success: function () {
+                alert("you have now added a hobby to a person");
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+    });
 });
 

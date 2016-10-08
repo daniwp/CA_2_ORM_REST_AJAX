@@ -98,6 +98,32 @@
                         <button id="delete" type="submit" class="btn btn-danger">X - Delete</button>
                     </div>
                 </form>
+                        <div class="page-header">
+            <h2>Add a hobby to a person:</h2>
+        </div>
+        <div class="row">
+            <form class="form-inline">
+                <div class="form-group col-md-4">
+                    <label>ID of the Name</label>
+                    <input type="text" class="form-control" id="ID">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="">Hobby</label>
+                    <input type="text" class="form-control" id="hobby">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="email">description:</label>
+                    <input type="text" class="form-control" id="description" required>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <a href="http://localhost:8084/CA2REST/people.jsp">
+                <button style="margin-top: 20px;" id="addhobby" type="submit" class="btn btn-primary">Submit</button>
+                </a>
+            </div>
+        </div>
             </div>
         </div>
     </div>
