@@ -105,7 +105,7 @@
             <form class="form-inline">
                 <div class="form-group col-md-4">
                     <label>ID of the Name</label>
-                    <input type="text" class="form-control" id="ID">
+                    <input type="text" class="form-control" id="IDHOB">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="">Hobby</label>
@@ -119,9 +119,7 @@
         </div>
         <div class="row">
             <div class="col-md-2">
-                <a href="http://localhost:8084/CA2REST/people.jsp">
                 <button style="margin-top: 20px;" id="addhobby" type="submit" class="btn btn-primary">Submit</button>
-                </a>
             </div>
         </div>
             </div>

@@ -137,22 +137,25 @@ $(document).ready(function () {
         });
     });
     $("#addhobby").click(function (data) {
-        var person = getPerson(id);
-        var id = $("#ID").val();
+        //var person = getPerson(id);
+        var id = $("#IDHOB").val();
         var hobby = $("#hobby").val();
-        var desc = $("#description").val();
-        $.ajax({
-            url: "http://localhost:8084/CA2REST/api/person/" + id,
-            type: "PUT",
-            contentType: "json",
-            data: JSON.stringify({
-                id: id,
-                hobby: hobby,
-                desc: desc
+        var description = $("#description").val();
+        var cmh = JSON.stringify({
+                name: hobby,
+                description: description
                 
-            }), success: function () {
-                alert("you have now added a hobby to a person");
-            },
+            });
+            console.log(cmh);
+        $.ajax({
+            url: "http://localhost:8084/CA2REST/api/person/hobby/" + id,
+            type: "POST",
+            contentType: "application/json",
+            data: cmh,
+             
+             success: function (res) {
+                console.log(res);
+        },
             error: function (res) {
                 console.log(res);
             }
