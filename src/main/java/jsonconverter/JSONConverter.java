@@ -229,7 +229,17 @@ public class JSONConverter implements IJSONConverter {
 
                     p.addPhone(new Phone(number, description));
                 }
+            }
 
+            if (json.get("hobbies") != null) {
+
+                for (JsonElement e : json.getAsJsonArray("hobbies")) {
+
+                    String name = e.getAsJsonObject().get("name").getAsString();
+                    String description = e.getAsJsonObject().get("description").getAsString();
+
+                    p.addHobby(new Hobby(name, description));
+                }
             }
 
         } catch (Exception e) {
@@ -237,6 +247,16 @@ public class JSONConverter implements IJSONConverter {
         }
 
         return p;
+    }
+
+    public Hobby getHobbyFromJson(String content) {
+
+        JsonObject json = new JsonParser().parse(content).getAsJsonObject();
+
+        String name = json.get("name").getAsString();
+        String description = json.get("description").getAsString();
+
+        return new Hobby(name, description);
     }
 
     /**
@@ -451,6 +471,7 @@ public class JSONConverter implements IJSONConverter {
         JsonArray phones = new JsonArray();
         JsonArray hobbies = new JsonArray();
 
+        json.addProperty("id", person.getId());
         json.addProperty("firstname", person.getFirstName());
         json.addProperty("lastname", person.getLastName());
         json.addProperty("email", person.getEmail());

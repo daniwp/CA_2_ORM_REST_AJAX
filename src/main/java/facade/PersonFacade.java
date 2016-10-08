@@ -309,8 +309,8 @@ public class PersonFacade implements IPersonFacade {
         long personID = -1;
 
         try {
-            phoneID = em.createQuery("SELECT p.id FROM Phone p WHERE p.number = :number", Long.class).setParameter("number", number).getSingleResult();
-            personID = (long) em.createNativeQuery("SELECT person_phone.`Person_ID` FROM person_phone WHERE `phones_ID` = ?id").setParameter("id", phoneID).getSingleResult();
+            phoneID = em.createQuery("SELECT p.id FROM Phone p WHERE p.number = :number", Long.class).setParameter("number", number).getResultList().get(0);
+            personID = (long) em.createNativeQuery("SELECT person_phone.`Person_ID` FROM person_phone WHERE `phones_ID` = ?id").setParameter("id", phoneID).getResultList().get(0);
 
             person = em.find(Person.class, personID);
 
